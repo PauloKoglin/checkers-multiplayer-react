@@ -1,0 +1,7 @@
+.gameArea {    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid rgb(54, 50, 50) ;
+    margin: 100px 100px;    
+}
