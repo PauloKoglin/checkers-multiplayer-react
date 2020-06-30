@@ -40,7 +40,7 @@ export default class Piece extends Component {
 
     render() {
         return (
-            <div draggable='true' className={this.getClasses()}
+            <div className={this.getClasses()}
                 onMouseDown={() => this.selectPiece()}>
             </div>)
     }

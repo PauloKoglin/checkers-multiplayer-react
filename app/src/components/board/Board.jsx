@@ -1,36 +1,88 @@
 import './Board.css'
-// import React, { Component } from 'react'
-import React from 'react'
-import Cell from '../cell/Cell'
+import React, { Component } from 'react'
+import Square from '../square/Square'
 
-function renderCells() {
-    let cells = [...Array(100).keys()]
-    let line = 0
-    let index = 0
-    let piece = ""
-    return cells.map(cell => {
-        if (index === 10) {
-            line++
-            index = 0
+const RED_PIECE = 'red';
+const YELLOW_PIECE = 'yellow';
+
+class Board extends Component {
+
+
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            squares: new Array(100).fill({ color: null, index: null, piece: null, selected: false }),
         }
-        index++;
+    }
 
-        piece = ""
+    // addClass(param) {
+    //     this.state.classes.push(param)        
+    // }
 
-        if (line < 3) piece = "red"
-        if (line > 6) piece = "yellow"
+    // removeClass(param) {
+    //     let list = this.state.classes.filter(c => c !== param)
+    //     this.setState({ classes: list })
+    // }
 
-        if (line % 2 === 0) {
-            return cell % 2 === 0 ? <Cell index={cell} key={cell} color="brown" piece={piece}></Cell> : <Cell index={cell} key={cell} color="darkyellow"> </Cell>
-        } else
-            return cell % 2 === 0 ? <Cell index={cell} key={cell} color="darkyellow"></Cell> : <Cell index={cell} key={cell} color="brown" piece={piece}></Cell>
-    })
+    // getSquareClasses() {
+    //     let list = ''
+    //     this.state.classes.forEach(item => list += item + ' ')
+    //     console.log(this.state)
+    //     return list
+    // }
+
+    onClickSquare(i) {
+        let squares = this.state.squares
+        squares[i].selected = !this.state.squares[i].selected
+        this.setState(squares)
+        console.log("clicou")
+    }
+
+    renderSquares() {
+        let line = 0
+        let index = 0
+        let piece = ""
+        // let newSquare = {}
+        return this.state.squares.map((square, i) => {
+            if (index === 10) {
+                line++
+                index = 0
+            }
+            index++;
+
+            piece = ""
+            if (line < 3) piece = RED_PIECE
+            if (line > 6) piece = YELLOW_PIECE
+
+            if (line % 2 === 0) {
+                square = i % 2 === 0 ? { ...square, color: "brown", index: i, piece } : { ...square, color: "darkyellow", index: i }
+            } else
+                square = i % 2 === 0 ? { ...square, color: "darkyellow", index: i } : { ...square, color: "brown", index: i, piece }
+
+            this.state.squares[i] = square
+
+            return (
+                <Square
+                    // getSquareClasses={() => this.getSquareClasses()}
+                    onClick={() => this.onClickSquare(i)}
+                    key={i}
+                    config={this.state.squares[i]}>
+                </Square>
+            )
+        })
+    }
+
+    render() {
+        return (<div className='board'>
+            {this.renderSquares()}
+        </div>)
+    }
+
 }
 
-export default props =>
-    (<div className='board'>
-        {
-            renderCells()
-        }
-    </div>)
+
+export default Board
+
 
