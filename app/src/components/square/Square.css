@@ -36,7 +36,10 @@
 }
 
 .selected {    
-    
-    background-color: rgb(16, 110, 16);       
-    
+    background-color: rgb(16, 110, 16);
+}
+
+.move {
+    background-color: rgb(16, 110, 16);
+    /* border: 2px solid green; */
 }

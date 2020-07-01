@@ -3,20 +3,22 @@ import './Square.css'
 import React, { Component } from 'react'
 
 export default class Square extends Component {
-
-
-    // addPiece(piece) {
-    //     return piece ? <Piece {...this.props} color={piece} /> : null
-    // }
-
-
+    buildClasses() {
+        return (this.props.config.selected ? "selected " : "")
+            .concat(this.props.config.move ? "move " : "")
+            .concat(this.props.config.color)
+    }
 
     render() {
         return (
             <div
                 key={this.props.config.index}
-                className={(this.props.config.selected ? "selected " : "").concat(this.props.config.color)}
-                onClick={() => this.props.onClick()}>
+                id={this.props.config.index}
+                className={this.buildClasses()}
+                onClick={() => this.props.onClick()}
+                onMouseOver={() => this.props.onMouseOver()}
+                onMouseLeave={() => this.props.onMouseLeave()}
+            >
                 <div className={this.props.config.piece}></div>
             </div>
 
