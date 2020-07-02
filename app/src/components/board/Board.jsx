@@ -12,6 +12,7 @@ const initialState = {
 
 // Variables
 let possibleMoves = []
+let possibleCaptures = []
 
 function initializeBoardSquares() {
     let squares = new Array(100).fill({ color: null, index: null, checker: null, move: null, piece: null, selected: false })
@@ -57,22 +58,82 @@ class Board extends Component {
 
     moveSquarePiece(square, index) {
         let squares = this.state.squares
+        let selectedSquareIndex = null
+
+        if (possibleCaptures.length > 0) {
+            possibleCaptures.forEach(item => {
+                if (item.CapturerNewIndex === index)
+                    squares[item.PieceToCaptureIndex].piece = null
+            })
+            possibleCaptures = this.calculatePossibleCaptures(square.piece, index)
+        }
+        this.paintPossibleMoves(squares)
 
         squares[square.index].selected = false
         squares[index].piece = square.piece
-        squares[square.index].piece = ""
-        this.setState({ squares, selectedSquareIndex: null })
+        squares[index].move = false
+        squares[square.index].piece = null
+
+        if (possibleCaptures.length > 0) {
+            selectedSquareIndex = index
+            squares[index].selected = true
+        }
+
+        this.setState({ squares, selectedSquareIndex: selectedSquareIndex })
+    }
+
+    calculatePossibleCaptures(piece, position) {
+        let square = null
+        let captures = []
+        let checkPosition = null
+
+        checkPosition = position + 9
+        square = this.state.squares[checkPosition]
+        if (square.piece && square.piece !== piece)
+            captures.push({ PieceToCaptureIndex: square.index, CapturerNewIndex: checkPosition + 9 })
+
+        checkPosition = position - 9
+        square = this.state.squares[checkPosition]
+        if (square.piece && square.piece !== piece)
+            captures.push({ PieceToCaptureIndex: square.index, CapturerNewIndex: checkPosition - 9 })
+
+        checkPosition = position + 11
+        square = this.state.squares[checkPosition]
+        if (square.piece && square.piece !== piece)
+            captures.push({ PieceToCaptureIndex: square.index, CapturerNewIndex: checkPosition + 11 })
+
+        checkPosition = position - 11
+        square = this.state.squares[checkPosition]
+        if (square.piece && square.piece !== piece)
+            captures.push({ PieceToCaptureIndex: square.index, CapturerNewIndex: checkPosition - 11 })
+
+        return captures
     }
 
     calculatePossiblesMoves(square) {
-        if (square.piece === RED_PIECE)
+        if (square.piece === RED_PIECE) {
             return [square.index + 10]
-        else
+        } else {
             return [square.index - 10]
+        }
     }
 
     canMoveTo(i) {
-        return possibleMoves.includes(i)
+        return possibleMoves.includes(i) || possibleCaptures.find(item => item.CapturerNewIndex === i)
+    }
+
+    paintPossibleMoves(squares) {
+        if (possibleCaptures.length > 0) {
+            squares.forEach(square => {
+                if (possibleCaptures.find(item => item.CapturerNewIndex === square.index))
+                    square.move = true
+            })
+        } else {
+            squares.forEach(square => {
+                if (possibleMoves.includes(square.index))
+                    square.move = true
+            })
+        }
     }
 
     setSelectedSquare(index, value) {
@@ -82,9 +143,18 @@ class Board extends Component {
 
         square.selected = value
         newSelectedIndex = square.selected ? index : null
-        possibleMoves = square.selected ? this.calculatePossiblesMoves(square) : []
+        possibleCaptures = square.selected ? this.calculatePossibleCaptures(square.piece, index) : []
+        possibleMoves = square.selected && possibleCaptures.length === 0 ? this.calculatePossiblesMoves(square) : []
 
         squares[index] = square
+
+        if (!square.selected) {
+            squares.forEach(square => {
+                square.move = false
+            })
+        }
+        this.paintPossibleMoves(squares)
+
         this.setState({ squares, selectedSquareIndex: newSelectedIndex })
     }
 
@@ -110,17 +180,18 @@ class Board extends Component {
     }
 
     onMouseOver(i) {
-        if (possibleMoves.includes(i)) {
-            let squares = this.state.squares
-            squares[i].move = true
-            this.setState({ squares })
-        }
+        // if (possibleMoves.includes(i) || possibleCaptures.find(item => item.CapturerNewIndex === i)) {
+        //     let squares = this.state.squares
+        //     squares[i].move = true
+        //     this.setState({ squares })
+        // }
+        console.log("mouse over")
     }
 
     onMouseLeave(i) {
-        let squares = this.state.squares
-        if (squares[i].move) squares[i].move = false
-        this.setState({ squares })
+        // let squares = this.state.squares
+        // if (squares[i].move) squares[i].move = false
+        // this.setState({ squares })
     }
 
     renderSquares() {
