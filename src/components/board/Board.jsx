@@ -5,8 +5,18 @@ import Square from '../square/Square'
 // Consts
 const RED_PIECE = 'red';
 const YELLOW_PIECE = 'yellow';
-const initialState = {
+const YELLOW_CHECKER_POSITIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+const RED_CHECKER_POSITIONS = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
+const CHECK_INDEX_RIGHT_FORWARD = 9;
+const CHECK_INDEX_RIGTH_BACKWARD = -9;
+const CHECK_INDEX_LEFT_FORWARD = 11;
+const CHECK_INDEX_LEFT_BACKWARD = -11;
+
+
+const INITIAL_STATE = {
     squares: initializeBoardSquares(),
+    capturedRedPieces: 0,
+    capturedYellowPieces: 0,
     selectedSquareIndex: null,
 }
 
@@ -15,7 +25,16 @@ let possibleMoves = []
 let possibleCaptures = []
 
 function initializeBoardSquares() {
-    let squares = new Array(100).fill({ color: null, index: null, checker: null, move: null, piece: null, selected: false })
+    let squares = new Array(100).fill(
+        {
+            color: null,
+            index: null,
+            checker: null,
+            move: null,
+            piece: null,
+            selected: false,
+        }
+    )
     let line = 0
     let index = 0
     let piece = ""
@@ -48,78 +67,85 @@ class Board extends Component {
         super(props)
 
         this.state = {
-            ...initialState
+            ...INITIAL_STATE
         }
     }
 
-    squareHasPiece(i) {
-        return this.state.squares[i].piece
-    }
+    // Arrow Functions
+    squareHasPiece = (i) => this.state.squares[i].piece
+    calculatePossiblesMoves = (square) => square.piece === RED_PIECE ? [square.index + 10] : [square.index - 10]
+    canMoveTo = (i) => possibleMoves.includes(i) || possibleCaptures.find(item => item.CapturerNewIndex === i)
+    isCheckerPosition = (piece, position) => piece === RED_PIECE ? RED_CHECKER_POSITIONS.includes(position) : YELLOW_CHECKER_POSITIONS.includes(position)
 
-    moveSquarePiece(square, index) {
+    moveSquarePiece(square, newPosition) {
         let squares = this.state.squares
         let selectedSquareIndex = null
 
         if (possibleCaptures.length > 0) {
             possibleCaptures.forEach(item => {
-                if (item.CapturerNewIndex === index)
+                if (item.CapturerNewIndex === newPosition) {
+                    squares[item.PieceToCaptureIndex].piece === RED_PIECE ?
+                        this.props.incCapturedRedPieces() : this.props.incCapturedYellowPieces()
                     squares[item.PieceToCaptureIndex].piece = null
+                }
             })
-            possibleCaptures = this.calculatePossibleCaptures(square.piece, index)
+            possibleCaptures = this.calculatePossibleCaptures(square.piece, newPosition)
         }
         this.paintPossibleMoves(squares)
 
+        squares[newPosition].piece = square.piece
+        squares[newPosition].checker = square.checker
+        squares[newPosition].move = false
         squares[square.index].selected = false
-        squares[index].piece = square.piece
-        squares[index].move = false
         squares[square.index].piece = null
+        squares[square.index].checker = false
 
         if (possibleCaptures.length > 0) {
-            selectedSquareIndex = index
-            squares[index].selected = true
+            selectedSquareIndex = newPosition
+            squares[newPosition].selected = true
         }
+
+        if (this.isCheckerPosition(square.piece, newPosition))
+            squares[newPosition].checker = true
 
         this.setState({ squares, selectedSquareIndex: selectedSquareIndex })
     }
 
+    tranformChecker(square) {
+        let squares = this.state.squares
+        squares[square.index].checker = true
+        this.setState({ ...this.state, squares })
+    }
+
+
+    returnPositionsToCapture(piece, position, checkIndex) {
+        let checkPosition = position + checkIndex
+        let afterCapturePosition = checkPosition + checkIndex
+        let squareToCapture = this.state.squares[checkPosition]
+
+        if (afterCapturePosition < 0 || afterCapturePosition > 99) return
+
+        if (squareToCapture && squareToCapture.piece && squareToCapture.piece !== piece && !this.state.squares[afterCapturePosition].piece)
+            return { PieceToCaptureIndex: squareToCapture.index, CapturerNewIndex: afterCapturePosition }
+    }
+
     calculatePossibleCaptures(piece, position) {
-        let square = null
+        let checkedPosition;
         let captures = []
-        let checkPosition = null
 
-        checkPosition = position + 9
-        square = this.state.squares[checkPosition]
-        if (square.piece && square.piece !== piece)
-            captures.push({ PieceToCaptureIndex: square.index, CapturerNewIndex: checkPosition + 9 })
+        if (checkedPosition = this.returnPositionsToCapture(piece, position, CHECK_INDEX_RIGHT_FORWARD))
+            captures.push(checkedPosition)
 
-        checkPosition = position - 9
-        square = this.state.squares[checkPosition]
-        if (square.piece && square.piece !== piece)
-            captures.push({ PieceToCaptureIndex: square.index, CapturerNewIndex: checkPosition - 9 })
+        if (checkedPosition = this.returnPositionsToCapture(piece, position, CHECK_INDEX_RIGTH_BACKWARD))
+            captures.push(checkedPosition)
 
-        checkPosition = position + 11
-        square = this.state.squares[checkPosition]
-        if (square.piece && square.piece !== piece)
-            captures.push({ PieceToCaptureIndex: square.index, CapturerNewIndex: checkPosition + 11 })
+        if (checkedPosition = this.returnPositionsToCapture(piece, position, CHECK_INDEX_LEFT_FORWARD))
+            captures.push(checkedPosition)
 
-        checkPosition = position - 11
-        square = this.state.squares[checkPosition]
-        if (square.piece && square.piece !== piece)
-            captures.push({ PieceToCaptureIndex: square.index, CapturerNewIndex: checkPosition - 11 })
+        if (checkedPosition = this.returnPositionsToCapture(piece, position, CHECK_INDEX_LEFT_BACKWARD))
+            captures.push(checkedPosition)
 
         return captures
-    }
-
-    calculatePossiblesMoves(square) {
-        if (square.piece === RED_PIECE) {
-            return [square.index + 10]
-        } else {
-            return [square.index - 10]
-        }
-    }
-
-    canMoveTo(i) {
-        return possibleMoves.includes(i) || possibleCaptures.find(item => item.CapturerNewIndex === i)
     }
 
     paintPossibleMoves(squares) {
@@ -159,7 +185,7 @@ class Board extends Component {
     }
 
     onClickSquare(i) {
-        console.log("square " + i + " clicked")
+        // console.log("square " + i + " clicked")
 
         if (this.squareHasPiece(i)) {
             if (this.state.selectedSquareIndex === i) {
@@ -179,28 +205,11 @@ class Board extends Component {
         }
     }
 
-    onMouseOver(i) {
-        // if (possibleMoves.includes(i) || possibleCaptures.find(item => item.CapturerNewIndex === i)) {
-        //     let squares = this.state.squares
-        //     squares[i].move = true
-        //     this.setState({ squares })
-        // }
-        console.log("mouse over")
-    }
-
-    onMouseLeave(i) {
-        // let squares = this.state.squares
-        // if (squares[i].move) squares[i].move = false
-        // this.setState({ squares })
-    }
-
     renderSquares() {
         return this.state.squares.map((square, i) => {
             return (
                 <Square
                     onClick={() => this.onClickSquare(i)}
-                    onMouseOver={() => this.onMouseOver(i)}
-                    onMouseLeave={() => this.onMouseLeave(i)}
                     key={i}
                     config={square}>
                 </Square>

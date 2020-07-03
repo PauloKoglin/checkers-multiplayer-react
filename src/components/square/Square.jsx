@@ -1,12 +1,16 @@
 import './Square.css'
-// import Piece from '../piece/Piece.jsx'
 import React, { Component } from 'react'
 
 export default class Square extends Component {
-    buildClasses() {
+    getSquareClasses() {
         return (this.props.config.selected ? "selected " : "")
             .concat(this.props.config.move ? "move " : "")
             .concat(this.props.config.color)
+    }
+
+    getPieceClasses() {
+        return (this.props.config.checker ? "checker " : "")
+            .concat(this.props.config.piece)
     }
 
     render() {
@@ -14,12 +18,9 @@ export default class Square extends Component {
             <div
                 key={this.props.config.index}
                 id={this.props.config.index}
-                className={this.buildClasses()}
-                onClick={() => this.props.onClick()}
-                onMouseOver={() => this.props.onMouseOver()}
-                onMouseLeave={() => this.props.onMouseLeave()}
-            >
-                <div className={this.props.config.piece}></div>
+                className={this.getSquareClasses()}
+                onClick={() => this.props.onClick()}>
+                <div className={this.getPieceClasses()}></div>
             </div>
 
         )

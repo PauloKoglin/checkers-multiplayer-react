@@ -12,7 +12,7 @@
     float: left;
     width: 80px;
     height: 80px;
-    background-color: rgb(37, 26, 4);
+    background-color: rgb(78, 59, 20);
     font-size:50px;
     text-align:center;
     display: table-cell;
@@ -20,7 +20,7 @@
 }
 
 .red {
-    background-color: rgb(235, 14, 14);
+    background-color: rgb(216, 84, 84);
     border: 5px solid rgb(177, 33, 33);
     border-radius: 80%;
     padding: 25px;
@@ -40,6 +40,10 @@
 }
 
 .move {
-    background-color: rgb(16, 110, 16);
-    /* border: 2px solid green; */
+    background-color: rgb(16, 110, 16);    
+}
+
+.checker {
+    border: 5px dotted black;    
+    border-style: dashed;
 }
