@@ -1,0 +1,16 @@
+
+.red {
+    background-color: rgb(235, 14, 14);
+    border: 5px solid rgb(177, 33, 33);
+    border-radius: 80%;
+    padding: 25px;
+    margin: 10px;
+}
+
+.yellow {
+    background-color: rgb(240, 217, 114);
+    border: 5px solid rgb(201, 192, 153);    
+    border-radius: 80%;
+    padding: 25px;
+    margin: 10px;
+}

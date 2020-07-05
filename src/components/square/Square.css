@@ -1,22 +1,19 @@
-.darkyellow {
+.square {
     float: left;
     width: 80px;
     height: 80px;
-    background-color: rgb(143, 113, 14);
     font-size:50px;
     text-align:center;
     display: table-cell;
-    vertical-align:middle;       
+    vertical-align:middle;   
 }
-.brown {
-    float: left;
-    width: 80px;
-    height: 80px;
-    background-color: rgb(78, 59, 20);
-    font-size:50px;
-    text-align:center;
-    display: table-cell;
-    vertical-align:middle;
+
+.darkyellow {    
+    background-color: rgb(143, 113, 14);        
+}
+
+.brown {    
+    background-color: rgb(78, 59, 20);    
 }
 
 .red {
@@ -35,13 +32,15 @@
     margin: 10px;
 }
 
-.selected {    
+.selected, .move {    
     background-color: rgb(16, 110, 16);
+    /* opacity: 70%; */
+    background: linear-gradient(rgb(17, 110, 17, .5), rgb(16, 110, 16, .5))
 }
 
-.move {
+/* .move {
     background-color: rgb(16, 110, 16);    
-}
+} */
 
 .checker {
     border: 5px dotted black;    

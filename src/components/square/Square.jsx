@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 
 export default class Square extends Component {
     getSquareClasses() {
-        return (this.props.config.selected ? "selected " : "")
+        return "square ".concat(this.props.config.selected ? "selected " : "")
             .concat(this.props.config.move ? "move " : "")
-            .concat(this.props.config.color)
+        // .concat(this.props.config.color)
     }
 
     getPieceClasses() {
@@ -18,9 +18,12 @@ export default class Square extends Component {
             <div
                 key={this.props.config.index}
                 id={this.props.config.index}
-                className={this.getSquareClasses()}
+                // className={this.getSquareClasses()}
+                className={"square ".concat(this.props.config.color)}
                 onClick={() => this.props.onClick()}>
-                <div className={this.getPieceClasses()}></div>
+                <div className={this.getSquareClasses()}>
+                    <div className={this.getPieceClasses()}></div>
+                </div>
             </div>
 
         )

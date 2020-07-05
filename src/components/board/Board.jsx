@@ -7,6 +7,9 @@ const RED_PIECE = 'red';
 const YELLOW_PIECE = 'yellow';
 const YELLOW_CHECKER_POSITIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const RED_CHECKER_POSITIONS = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
+const NOT_CAPTURABLE_PIECES_INDEX = [0, 9, 10, 19, 20, 29, 30, 39, 40, 49, 50, 59, 60, 69, 70, 79, 80, 89, 90, 99]
+const LEFT_SQUARE_INDEX = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90]
+const RIGHT_SQUARE_INDEX = [9, 19, 29, 39, 49, 59, 69, 79, 89, 99]
 const CHECK_INDEX_RIGHT_FORWARD = 9;
 const CHECK_INDEX_RIGTH_BACKWARD = -9;
 const CHECK_INDEX_LEFT_FORWARD = 11;
@@ -73,13 +76,13 @@ class Board extends Component {
 
     // Arrow Functions
     squareHasPiece = (i) => this.state.squares[i].piece
-    calculatePossiblesMoves = (square) => square.piece === RED_PIECE ? [square.index + 10] : [square.index - 10]
     canMoveTo = (i) => possibleMoves.includes(i) || possibleCaptures.find(item => item.CapturerNewIndex === i)
     isCheckerPosition = (piece, position) => piece === RED_PIECE ? RED_CHECKER_POSITIONS.includes(position) : YELLOW_CHECKER_POSITIONS.includes(position)
 
     moveSquarePiece(square, newPosition) {
         let squares = this.state.squares
         let selectedSquareIndex = null
+
 
         if (possibleCaptures.length > 0) {
             possibleCaptures.forEach(item => {
@@ -93,6 +96,10 @@ class Board extends Component {
         }
         this.paintPossibleMoves(squares)
 
+        squares.forEach(square => {
+            square.move = false
+        })
+
         squares[newPosition].piece = square.piece
         squares[newPosition].checker = square.checker
         squares[newPosition].move = false
@@ -105,7 +112,7 @@ class Board extends Component {
             squares[newPosition].selected = true
         }
 
-        if (this.isCheckerPosition(square.piece, newPosition))
+        if (this.isCheckerPosition(squares[newPosition].piece, newPosition))
             squares[newPosition].checker = true
 
         this.setState({ squares, selectedSquareIndex: selectedSquareIndex })
@@ -123,10 +130,57 @@ class Board extends Component {
         let afterCapturePosition = checkPosition + checkIndex
         let squareToCapture = this.state.squares[checkPosition]
 
-        if (afterCapturePosition < 0 || afterCapturePosition > 99) return
+        if (afterCapturePosition < 0 || afterCapturePosition > 99 || NOT_CAPTURABLE_PIECES_INDEX.includes(checkPosition)) return
 
         if (squareToCapture && squareToCapture.piece && squareToCapture.piece !== piece && !this.state.squares[afterCapturePosition].piece)
             return { PieceToCaptureIndex: squareToCapture.index, CapturerNewIndex: afterCapturePosition }
+    }
+
+    // Recursive method
+    calculateCheckerDiagonal(position, checkIndex, moves) {
+        let checkPosition = position + checkIndex
+        let squareAtPosition = this.state.squares[checkPosition]
+
+        if (squareAtPosition && !squareAtPosition.piece) {
+            moves = [...moves, checkPosition]
+            if (!LEFT_SQUARE_INDEX.includes(checkPosition) && !RIGHT_SQUARE_INDEX.includes(checkPosition)) {
+                return this.calculateCheckerDiagonal(squareAtPosition.index, checkIndex, moves)
+            }
+
+        }
+        return moves
+    }
+
+    calculateCheckerMoves(square) {
+        let moves = []
+
+        if (!LEFT_SQUARE_INDEX.includes(square.index))
+            moves = this.calculateCheckerDiagonal(square.index, CHECK_INDEX_RIGHT_FORWARD, moves)
+
+        if (!RIGHT_SQUARE_INDEX.includes(square.index))
+            moves = this.calculateCheckerDiagonal(square.index, CHECK_INDEX_RIGTH_BACKWARD, moves)
+
+        if (!RIGHT_SQUARE_INDEX.includes(square.index))
+            moves = this.calculateCheckerDiagonal(square.index, CHECK_INDEX_LEFT_FORWARD, moves)
+
+        if (!LEFT_SQUARE_INDEX.includes(square.index))
+            moves = this.calculateCheckerDiagonal(square.index, CHECK_INDEX_LEFT_BACKWARD, moves)
+
+        return moves
+    }
+
+    calculatePossiblesMoves(square) {
+
+        if (square.checker)
+            return this.calculateCheckerMoves(square)
+
+        if (RIGHT_SQUARE_INDEX.includes(square.index))
+            return square.piece === RED_PIECE ? [square.index + CHECK_INDEX_RIGHT_FORWARD] : [square.index + CHECK_INDEX_LEFT_BACKWARD]
+
+        if (LEFT_SQUARE_INDEX.includes(square.index))
+            return square.piece === RED_PIECE ? [square.index + CHECK_INDEX_LEFT_FORWARD] : [square.index + CHECK_INDEX_RIGTH_BACKWARD]
+
+        return square.piece === RED_PIECE ? [square.index + 9, square.index + 11] : [square.index - 9, square.index - 11]
     }
 
     calculatePossibleCaptures(piece, position) {
