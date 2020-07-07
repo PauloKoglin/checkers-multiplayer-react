@@ -1,6 +1,6 @@
 import './GameArea.css'
 import React from 'react'
-import Game from '../game/Game'
+import Game from '../Game'
 
 export default props =>
     <div className='gameArea'>

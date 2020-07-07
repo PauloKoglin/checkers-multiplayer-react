@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Board from '../board/Board'
-import Player from '../player/Player'
+import Board from '../Board'
+import Player from '../Player'
 
 const INITIAL_STATE = {
     capturedRedPieces: 0,

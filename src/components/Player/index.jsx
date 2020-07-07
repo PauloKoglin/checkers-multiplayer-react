@@ -1,4 +1,4 @@
-import './Player.css'
+import './index.css'
 // import Piece from '../piece/Piece'
 import React from 'react'
 

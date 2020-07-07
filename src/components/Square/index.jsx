@@ -1,4 +1,4 @@
-import './Square.css'
+import './index.css'
 import React, { Component } from 'react'
 
 export default class Square extends Component {
