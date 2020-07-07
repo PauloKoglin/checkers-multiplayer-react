@@ -1,5 +1,6 @@
-const RED_PIECE = 'red';
-const YELLOW_PIECE = 'yellow';
+import * as types from '../types'
+import * as actions from '../../store/actions/game'
+
 const YELLOW_CHECKER_POSITIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const RED_CHECKER_POSITIONS = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99]
 const NOT_CAPTURABLE_PIECES_INDEX = [0, 9, 10, 19, 20, 29, 30, 39, 40, 49, 50, 59, 60, 69, 70, 79, 80, 89, 90, 99]
@@ -36,8 +37,8 @@ function initializeBoardSquares() {
         index++;
 
         piece = ""
-        if (line < 3) piece = RED_PIECE
-        if (line > 6) piece = YELLOW_PIECE
+        if (line < 3) piece = types.RED_PIECE
+        if (line > 6) piece = types.YELLOW_PIECE
 
         if (line % 2 === 0) {
             square = i % 2 === 0 ? { ...square, color: "brown", index: i, piece } : { ...square, color: "darkyellow", index: i }
@@ -52,18 +53,18 @@ function initializeBoardSquares() {
 
 const squareHasPiece = (squares, index) => squares[index].piece
 const canMoveTo = (index) => possibleMoves.includes(index) || possibleCaptures.find(item => item.CapturerNewIndex === index)
-const isCheckerPosition = (piece, position) => piece === RED_PIECE ? RED_CHECKER_POSITIONS.includes(position) : YELLOW_CHECKER_POSITIONS.includes(position)
+const isCheckerPosition = (piece, position) => piece === types.RED_PIECE ? RED_CHECKER_POSITIONS.includes(position) : YELLOW_CHECKER_POSITIONS.includes(position)
 
 function moveSquarePiece(state, square, newPosition) {
     let squares = state.squares
     let selectedSquareIndex = null
-
+    let capturedRedPieces = state.capturedRedPieces || 0
+    let capturedYellowPieces = state.capturedYellowPieces || 0
 
     if (possibleCaptures.length > 0) {
         possibleCaptures.forEach(item => {
             if (item.CapturerNewIndex === newPosition) {
-                // squares[item.PieceToCaptureIndex].piece === RED_PIECE ?
-                //     props.incCapturedRedPieces() : props.incCapturedYellowPieces()
+                squares[item.PieceToCaptureIndex].piece === types.RED_PIECE ? capturedRedPieces++ : capturedYellowPieces++
                 squares[item.PieceToCaptureIndex].piece = null
             }
         })
@@ -90,7 +91,7 @@ function moveSquarePiece(state, square, newPosition) {
     if (isCheckerPosition(squares[newPosition].piece, newPosition))
         squares[newPosition].checker = true
 
-    return { ...state, squares, selectedSquareIndex: selectedSquareIndex }
+    return { ...state, squares, selectedSquareIndex: selectedSquareIndex, capturedRedPieces, capturedYellowPieces }
 }
 
 // function tranformChecker(state, square) {
@@ -150,12 +151,12 @@ function calculatePossiblesMoves(state, square) {
         return calculateCheckerMoves(state, square)
 
     if (RIGHT_SQUARE_INDEX.includes(square.index))
-        return square.piece === RED_PIECE ? [square.index + CHECK_INDEX_RIGHT_FORWARD] : [square.index + CHECK_INDEX_LEFT_BACKWARD]
+        return square.piece === types.RED_PIECE ? [square.index + CHECK_INDEX_RIGHT_FORWARD] : [square.index + CHECK_INDEX_LEFT_BACKWARD]
 
     if (LEFT_SQUARE_INDEX.includes(square.index))
-        return square.piece === RED_PIECE ? [square.index + CHECK_INDEX_LEFT_FORWARD] : [square.index + CHECK_INDEX_RIGTH_BACKWARD]
+        return square.piece === types.RED_PIECE ? [square.index + CHECK_INDEX_LEFT_FORWARD] : [square.index + CHECK_INDEX_RIGTH_BACKWARD]
 
-    return square.piece === RED_PIECE ? [square.index + 9, square.index + 11] : [square.index - 9, square.index - 11]
+    return square.piece === types.RED_PIECE ? [square.index + 9, square.index + 11] : [square.index - 9, square.index - 11]
 }
 
 function calculatePossibleCaptures(state, piece, position) {
@@ -211,7 +212,7 @@ function setSelectedSquare(state, index, value) {
     }
     squares = paintPossibleMoves(squares)
 
-    return { squares, selectedSquareIndex: newSelectedIndex }
+    return { ...state, squares, selectedSquareIndex: newSelectedIndex }
 }
 
 function calculateGame(state, index) {
@@ -232,7 +233,5 @@ function calculateGame(state, index) {
     }
     return { ...state }
 }
-
-
 
 export default { initializeBoardSquares, calculateGame };

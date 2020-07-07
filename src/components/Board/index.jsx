@@ -3,19 +3,13 @@ import { connect } from 'react-redux'
 
 import './index.css'
 import Square from '../Square'
+import * as actions from '../../store/actions/board'
 
-function onClick(index) {
-    return {
-        type: 'CLICK_SQUARE',
-        index
-    }
-}
-
-function renderSquares(squares, dispatch) {
-    return squares.map((square, index) => {
+function renderSquares(props) {
+    return props.squares.map((square, index) => {
         return (
             <Square
-                onClick={() => dispatch(onClick(index))}
+                onClick={() => props.onSquareClick(index)}
                 key={index}
                 config={square}>
             </Square>
@@ -23,12 +17,23 @@ function renderSquares(squares, dispatch) {
     })
 }
 
-const Board = ({ squares, dispatch, selectedSquareIndex }) => {
+const Board = (props) => {
     return (<div className='board'>
-        {renderSquares(squares, dispatch)}
+        {renderSquares(props)}
     </div>)
 }
 
-export default connect(state => ({ squares: state.squares, selectedSquareIndex: state.selectedSquareIndex }))(Board)
+function mapStateToProps(state) {
+    return {
+        squares: state.board.squares,
+        selectedSquareIndex: state.board.selectedSquareIndex,
+    }
+}
 
+function mapDispatchToProps(dispatch) {
+    return {
+        onSquareClick: (index) => dispatch(actions.calculateMoves(index)),
+    }
+}
 
+export default connect(mapStateToProps, mapDispatchToProps)(Board)

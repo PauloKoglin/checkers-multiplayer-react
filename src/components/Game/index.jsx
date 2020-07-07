@@ -1,44 +1,37 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+
 import Board from '../Board'
 import Player from '../Player'
 
-const INITIAL_STATE = {
-    capturedRedPieces: 0,
-    capturedYellowPieces: 0,
-}
-
-export default class Game extends Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            ...INITIAL_STATE
-        }
-    }
-
-    setCapturedYellowPieces = (value) => this.setState({ ...this.state, capturedYellowPieces: value })
-    setCapturedRedPieces = (value) => this.setState({ ...this.state, capturedRedPieces: value })
-
-    incCapturedYellowPieces = () => this.setCapturedYellowPieces(this.state.capturedYellowPieces + 1)
-    incCapturedRedPieces = () => this.setCapturedRedPieces(this.state.capturedRedPieces + 1)
-
+export class Game extends Component {
     render() {
         return (
             <div className='game'>
                 <Player
-                    piece='red'
-                    captures={this.state.capturedYellowPieces}
-                    name="Paulo" />
+                    piece={this.props.player1.pieceColor}
+                    captures={this.props.capturedRedPieces}
+                    name={this.props.player1.name} />
                 <Board
-                    incCapturedRedPieces={() => this.incCapturedRedPieces()}
-                    incCapturedYellowPieces={() => this.incCapturedYellowPieces()}
+                // incCapturedRedPieces={() => this.incCapturedRedPieces()}
+                // incCapturedYellowPieces={() => this.incCapturedYellowPieces()}
                 />
                 <Player
-                    piece='yellow'
-                    captures={this.state.capturedRedPieces}
-                    name="Elais" />
+                    piece={this.props.player2.pieceColor}
+                    captures={this.props.capturedYellowPieces}
+                    name={this.props.player2.name} />
             </div>
         )
     }
 }
+
+function mapStateToProps(state) {
+    return {
+        player1: state.game.player1,
+        player2: state.game.player2,
+        capturedRedPieces: state.board.capturedRedPieces,
+        capturedYellowPieces: state.board.capturedYellowPieces,
+    }
+}
+
+export default connect(mapStateToProps)(Game)
