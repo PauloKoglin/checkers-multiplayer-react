@@ -1,5 +1,4 @@
 import * as types from '../types'
-import * as actions from '../../store/actions/game'
 
 const YELLOW_CHECKER_POSITIONS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 const RED_CHECKER_POSITIONS = [90, 91, 92, 93, 94, 95, 96, 97, 98, 99]

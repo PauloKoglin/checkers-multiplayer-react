@@ -1,5 +1,6 @@
 import './index.css'
 import React, { Component } from 'react'
+import { motion } from "framer-motion";
 
 export default class Square extends Component {
     getSquareClasses() {
@@ -15,16 +16,18 @@ export default class Square extends Component {
 
     render() {
         return (
-            <div
+            <motion.div
                 key={this.props.config.index}
                 id={this.props.config.index}
-                // className={this.getSquareClasses()}
                 className={"square ".concat(this.props.config.color)}
                 onClick={() => this.props.onClick()}>
-                <div className={this.getSquareClasses()}>
-                    <div className={this.getPieceClasses()}></div>
-                </div>
-            </div>
+                <motion.div
+                    whileTap={{ scale: 0.8 }}>
+                    <div className={this.getSquareClasses()}>
+                        <div className={this.getPieceClasses()}></div>
+                    </div>
+                </motion.div>
+            </motion.div>
 
         )
     }

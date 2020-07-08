@@ -12,10 +12,7 @@ export class Game extends Component {
                     piece={this.props.player1.pieceColor}
                     captures={this.props.capturedRedPieces}
                     name={this.props.player1.name} />
-                <Board
-                // incCapturedRedPieces={() => this.incCapturedRedPieces()}
-                // incCapturedYellowPieces={() => this.incCapturedYellowPieces()}
-                />
+                <Board />
                 <Player
                     piece={this.props.player2.pieceColor}
                     captures={this.props.capturedYellowPieces}

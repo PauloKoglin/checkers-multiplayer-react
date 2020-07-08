@@ -10,11 +10,11 @@ const newPlayer = (pieceColor) => {
 
 const INITIAL_STATE = {
     player1: newPlayer(types.RED_PIECE),
-    player2: newPlayer(types.YELLOW_PIECE)
+    player2: newPlayer(types.YELLOW_PIECE),
+    isWhiteNext: true,
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
-    // console.log(state, action)
     if (action.type === actionTypes.SET_PLAYER1_NAME) {
         let player = state.player1
         player.name = action.name

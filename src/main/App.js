@@ -12,7 +12,8 @@ import Footer from '../components/template/Footer'
 export default props =>
   <Provider store={store}>
     <BrowserRouter>
-      <div className='app'>
+      <div
+        className='app'>
         <Header />
         <GameArea />
         <Footer />

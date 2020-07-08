@@ -32,10 +32,12 @@
     margin: 10px;
 }
 
-.selected, .move {    
+
+
+.move {    
     background-color: rgb(16, 110, 16);
     /* opacity: 70%; */
-    background: linear-gradient(rgb(17, 110, 17, .5), rgb(16, 110, 16, .5))
+    background: linear-gradient(rgb(17, 110, 17, .5), rgb(16, 110, 16, .5))    
 }
 
 /* .move {

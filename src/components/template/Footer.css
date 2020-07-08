@@ -1,6 +1,15 @@
 .footer {
     display: flex;
+    background-color: #4E5283;    
+    font-family: Arial, Helvetica, sans-serif;    
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;    
     align-items: center;    
+}
+
+.socialMedia {
+    display: flex;
+    flex-direction: row;   
+    justify-content: space-around;     
+    width: 80px;
 }
