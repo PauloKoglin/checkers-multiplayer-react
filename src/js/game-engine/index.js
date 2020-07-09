@@ -145,17 +145,48 @@ function calculateCheckerMoves(state, square) {
 }
 
 function calculatePossiblesMoves(state, square) {
+    let squares = state.squares;
+    let moves = []
 
     if (square.checker)
         return calculateCheckerMoves(state, square)
 
-    if (RIGHT_SQUARE_INDEX.includes(square.index))
-        return square.piece === types.RED_PIECE ? [square.index + CHECK_INDEX_RIGHT_FORWARD] : [square.index + CHECK_INDEX_LEFT_BACKWARD]
+    if (RIGHT_SQUARE_INDEX.includes(square.index)) {
+        if (square.piece === types.RED_PIECE) {
+            if (!squareHasPiece(squares, square.index + CHECK_INDEX_RIGHT_FORWARD))
+                moves.push(square.index + CHECK_INDEX_RIGHT_FORWARD)
+        } else {
+            if (!squareHasPiece(squares, square.index + CHECK_INDEX_LEFT_BACKWARD))
+                moves.push(square.index + CHECK_INDEX_LEFT_BACKWARD)
+        }
+        return moves;
+    }
 
-    if (LEFT_SQUARE_INDEX.includes(square.index))
-        return square.piece === types.RED_PIECE ? [square.index + CHECK_INDEX_LEFT_FORWARD] : [square.index + CHECK_INDEX_RIGTH_BACKWARD]
+    if (LEFT_SQUARE_INDEX.includes(square.index)) {
+        if (square.piece === types.RED_PIECE) {
+            if (!squareHasPiece(squares, square.index + CHECK_INDEX_LEFT_FORWARD))
+                moves.push(square.index + CHECK_INDEX_LEFT_FORWARD)
+        } else {
+            if (!squareHasPiece(squares, square.index + CHECK_INDEX_RIGTH_BACKWARD))
+                moves.push(square.index + CHECK_INDEX_RIGTH_BACKWARD)
+        }
+        return moves;
+    }
 
-    return square.piece === types.RED_PIECE ? [square.index + 9, square.index + 11] : [square.index - 9, square.index - 11]
+    if (square.piece === types.RED_PIECE) {
+        if (!squareHasPiece(squares, square.index + CHECK_INDEX_RIGHT_FORWARD))
+            moves.push(square.index + CHECK_INDEX_RIGHT_FORWARD)
+
+        if (!squareHasPiece(squares, square.index + CHECK_INDEX_LEFT_FORWARD))
+            moves.push(square.index + CHECK_INDEX_LEFT_FORWARD)
+    } else {
+        if (!squareHasPiece(squares, square.index + CHECK_INDEX_RIGTH_BACKWARD))
+            moves.push(square.index + CHECK_INDEX_RIGTH_BACKWARD)
+
+        if (!squareHasPiece(squares, square.index + CHECK_INDEX_LEFT_BACKWARD))
+            moves.push(square.index + CHECK_INDEX_LEFT_BACKWARD)
+    }
+    return moves;
 }
 
 function calculatePossibleCaptures(state, piece, position) {
@@ -195,22 +226,28 @@ function paintPossibleMoves(squares) {
 function setSelectedSquare(state, index, value) {
     let squares = state.squares
     let square = squares[index]
-    let newSelectedIndex
+    let newSelectedIndex = null
 
-    square.selected = value
-    newSelectedIndex = square.selected ? index : null
-    possibleCaptures = square.selected ? calculatePossibleCaptures(state, square.piece, index) : []
-    possibleMoves = square.selected && possibleCaptures.length === 0 ? calculatePossiblesMoves(state, square) : []
+    possibleCaptures = []
+    possibleMoves = []
+    if (value) {
+        possibleCaptures = value ? calculatePossibleCaptures(state, square.piece, index) : []
+        possibleMoves = value && possibleCaptures.length === 0 ? calculatePossiblesMoves(state, square) : []
+    }
 
-    squares[index] = square
+    if (possibleMoves.length > 0 || possibleCaptures.length > 0) {
+        square.selected = value
+        newSelectedIndex = square.selected ? index : null
+        squares[index] = square
+    }
 
-    if (!square.selected) {
+    if (!value) {
         squares.forEach(square => {
             square.move = false
         })
     }
-    squares = paintPossibleMoves(squares)
 
+    squares = paintPossibleMoves(squares)
     return { ...state, squares, selectedSquareIndex: newSelectedIndex }
 }
 
@@ -226,7 +263,7 @@ function calculateGame(state, index) {
         }
     } else {
         let selectedIndex = state.selectedSquareIndex
-        if (selectedIndex && selectedIndex !== index && canMoveTo(index)) {
+        if (selectedIndex != null && selectedIndex !== index && canMoveTo(index)) {
             return moveSquarePiece(state, state.squares[selectedIndex], index)
         }
     }
