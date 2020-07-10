@@ -3,13 +3,13 @@ import { connect } from 'react-redux'
 
 import './index.css'
 import Square from '../Square'
-import * as actions from '../../store/actions/board'
+import * as actions from '../../store/actions/game'
 
 function renderSquares(props) {
     return props.squares.map((square, index) => {
         return (
             <Square
-                onClick={() => props.onSquareClick(index)}
+                onClick={() => props.waiting ? null : props.onSquareClick(index)}
                 key={index}
                 config={square}>
             </Square>
@@ -18,15 +18,16 @@ function renderSquares(props) {
 }
 
 const Board = (props) => {
-    return (<div className='board'>
+    return (<div className={'board'.concat(props.waiting ? ' disabled' : '')}>
         {renderSquares(props)}
     </div>)
 }
 
 function mapStateToProps(state) {
     return {
-        squares: state.board.squares,
-        selectedSquareIndex: state.board.selectedSquareIndex,
+        squares: state.game.squares,
+        selectedSquareIndex: state.game.selectedSquareIndex,
+        waiting: !state.game.waiting,  // TODO; Retirar a negacao
     }
 }
 

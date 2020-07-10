@@ -26,8 +26,8 @@ function mapStateToProps(state) {
     return {
         player1: state.game.player1,
         player2: state.game.player2,
-        capturedRedPieces: state.board.capturedRedPieces,
-        capturedYellowPieces: state.board.capturedYellowPieces,
+        capturedRedPieces: state.game.capturedRedPieces,
+        capturedYellowPieces: state.game.capturedYellowPieces,
     }
 }
 

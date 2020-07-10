@@ -20,3 +20,10 @@ export const incPlayerCapturedPieces = (pieceColor) => {
         pieceColor
     }
 }
+
+export const calculateMoves = (index) => {
+    return {
+        type: actionTypes.CALCULATE_MOVES,
+        index
+    }
+}
