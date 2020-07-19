@@ -27,3 +27,19 @@ export const calculateMoves = (index) => {
         index
     }
 }
+
+export const squareClick = (square) => {
+    return {
+        type: actionTypes.SQUARE_CLICK,
+        square
+    }
+}
+
+export const movePieceTo = (index) => {
+    return {
+        type: actionTypes.MOVE_PIECE_TO,
+        index,
+    }
+}
+
+

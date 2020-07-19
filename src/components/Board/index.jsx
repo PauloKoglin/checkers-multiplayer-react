@@ -9,9 +9,20 @@ function renderSquares(props) {
     return props.squares.map((square, index) => {
         return (
             <Square
-                onClick={() => props.waiting ? null : props.onSquareClick(index)}
+                onClick={() => {
+                    if (!props.selectedSquareIndex || square.isSelected) {
+                        if (square.piece.isMovable)
+                            return props.onSquareClick(square)
+                    }
+
+                    if (square.isPossibleMove)
+                        return props.movePieceTo(index)
+
+                    return null
+                }
+                }
                 key={index}
-                config={square}>
+                {...square}>
             </Square>
         )
     })
@@ -27,13 +38,14 @@ function mapStateToProps(state) {
     return {
         squares: state.game.squares,
         selectedSquareIndex: state.game.selectedSquareIndex,
-        waiting: !state.game.waiting,  // TODO; Retirar a negacao
+        waiting: state.game.waiting,  // TODO; Retirar a negacao
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
-        onSquareClick: (index) => dispatch(actions.calculateMoves(index)),
+        onSquareClick: (square) => dispatch(actions.squareClick(square)),
+        movePieceTo: (index) => dispatch(actions.movePieceTo(index)),
     }
 }
 
