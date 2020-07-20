@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import './index.css'
+import './styles.css'
 import Square from '../Square'
 import * as actions from '../../store/actions/game'
 

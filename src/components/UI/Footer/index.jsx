@@ -1,5 +1,5 @@
 import React from 'react'
-import './Footer.css'
+import './styles.css'
 
 export default props =>
     <footer className='footer'>

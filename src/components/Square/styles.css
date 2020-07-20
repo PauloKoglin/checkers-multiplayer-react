@@ -32,17 +32,9 @@
     margin: 10px;
 }
 
-
-
-.move {    
-    background-color: rgb(16, 110, 16);
-    /* opacity: 70%; */
+.move {     
     background: linear-gradient(rgb(17, 110, 17, .5), rgb(16, 110, 16, .5))    
 }
-
-/* .move {
-    background-color: rgb(16, 110, 16);    
-} */
 
 .checker {
     border: 5px dotted black;    

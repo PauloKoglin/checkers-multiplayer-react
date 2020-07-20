@@ -1,70 +1,26 @@
-import './index.css'
+import './styles.css'
 import React, { Component } from 'react'
 import { motion } from "framer-motion";
 
-// const styles = {
-//     background: "blue",
-//     borderRadius: 30,
-//     width: 150,
-//     height: 150,
-//     margin: "auto"
-//  };
-
-
-
-
 export default class Square extends Component {
-    buildPiece = () => {
-
-        // const transition = {
-        //     yoyo: Infinity,
-        //     duration: 0.40
-        // }
-
-        // const variants = {
-        //     up: {
-        //         x: - 3,
-        //         y: - 2
-        //     },
-        //     down: {
-        //         x: 0
-        //     }
-        // }
-
-        if (this.props.piece.isMovable) {
+    buildPiece() {
+        if (this.props.piece.isMovable)
             return (
                 <motion.div
-                    // animate={{ opacity: 0.5 }}
-                    // initial={{ opacity: 1 }}                    
-                    // animate="up"
-                    // initial={"down"}
-                    // variants={variants}
-                    // transition={transition}
                     whileTap={{ scale: 0.8 }}
-                >
-                    <div className={this.getSquareClasses()}>
-                        <div className={this.getPieceClasses()}></div>
-                    </div>
-                </motion.div>
+                    className={this.getPieceClasses()}
+                />
             )
-        } else {
+        else
             return (
-                <motion.div
-
-                >
-                    <div className={this.getSquareClasses()}>
-                        <div className={this.getPieceClasses()}></div>
-                    </div>
-                </motion.div>
+                <div className={this.getPieceClasses()}></div>
             )
-        }
     }
 
     getSquareClasses() {
-        return "square ".concat(this.props.isSelected ? "selected " : "")
-            .concat(this.props.isPossibleMove ? "move " : "")
-            .concat(this.props.piece.isMovable ? "move " : "")
-        // .concat(this.props.color)
+        return "square "
+            .concat(this.props.isPossibleMove || this.props.piece.isMovable ? "move " : "")
+            .concat(this.props.color)
     }
 
     getPieceClasses() {
@@ -74,23 +30,13 @@ export default class Square extends Component {
 
     render() {
         return (
-            <motion.div
+            <div
                 key={this.props.index}
                 id={this.props.index}
-                className={"square ".concat(this.props.color)}
+                className={this.getSquareClasses()}
                 onClick={() => this.props.onClick()}>
                 {this.buildPiece()}
-                {/* <motion.div
-                    whileTap={{ scale: 0.8 }}
-                >
-                    <div className={this.getSquareClasses()}>
-                        <div className={this.getPieceClasses()}></div>
-                    </div>
-                </motion.div> */}
-            </motion.div>
-
+            </div>
         )
     }
 }
-
-

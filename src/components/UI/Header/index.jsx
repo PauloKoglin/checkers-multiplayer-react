@@ -1,4 +1,4 @@
-import './Header.css'
+import './styles.css'
 import React from 'react'
 
 export default props =>

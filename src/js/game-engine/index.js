@@ -140,7 +140,7 @@ function calculateCheckerMoves(squares, square) {
 }
 
 function calculatePossiblesMoves(squares, square) {
-    const moves = []
+    let moves = []
 
     if (square.piece.isChecker) {
         moves = calculateCheckerMoves(squares, square);

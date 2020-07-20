@@ -1,9 +1,8 @@
 import { combineReducers } from 'redux'
 
-// import board from './board'
 import game from './game'
 
+// actually only one reducer
 export default combineReducers({
-    // board,
     game,
 })
