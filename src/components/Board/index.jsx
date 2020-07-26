@@ -30,7 +30,7 @@ function renderSquares(props) {
                 onClick={() => onClick(props, square, index)}>
             </Square>
         )
-    })
+    });
 }
 
 const Board = (props) => {

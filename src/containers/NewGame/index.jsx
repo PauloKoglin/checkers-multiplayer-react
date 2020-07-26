@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { PulseLoader } from 'react-spinners'
+import { PulseLoader, ClipLoader } from 'react-spinners'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
 import axios from '../../axios'
@@ -40,7 +40,8 @@ class NewGame extends Component {
     }
 
     onCreateGameClick = () => {
-        axios.post('/room',
+        this.setState({ ...this.state, isLoading: true });
+        axios.post('/api/room',
             {
                 playerName: this.state.controls.input.value
             }
@@ -53,6 +54,8 @@ class NewGame extends Component {
 
                 socket.emit('create_room', game);
                 this.props.onCreateGame(game);
+                this.setState({ ...this.state, isLoading: false });
+
             })
             .catch(error => {
                 console.log(error);
@@ -80,6 +83,9 @@ class NewGame extends Component {
 
         if (this.props.isGameStarting)
             return (<Redirect to='/game' />)
+
+        if (this.state.isLoading)
+            return (<ClipLoader color={"#6CF"} />);
 
         if (this.props.isWatingForPlayer)
             return (

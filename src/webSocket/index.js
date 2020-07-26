@@ -1,9 +1,10 @@
-// import { useStore } from 'react-redux'
+
 import io from 'socket.io-client'
 import store from '../store';
 import * as actions from '../store/actions/game';
+import config from '../config/config.js'
 
-const socket = io('http://localhost:3001', {
+const socket = io(config.serverURL || 'http://localhost:3001', {
     autoConnect: false
 });
 

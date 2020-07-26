@@ -1,8 +1,6 @@
 import engine from '../../js/game-engine'
 import * as actionTypes from '../actions/actionTypes'
 import * as types from '../../js/types'
-// import Player from '../../js/classes/Player'
-
 
 const INITIAL_STATE = {
     player: null,
@@ -14,7 +12,6 @@ const INITIAL_STATE = {
     selectedSquareIndex: null,
     gameURL: '',
 
-    // isWaiting: true,
     isWhiteNext: true,
     isLoading: false,
     isGameStarting: false,

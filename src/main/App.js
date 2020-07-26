@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom'
-import { Route, Switch, Redirect } from 'react-router-dom'; // withRouter, Router
+import { Route, Switch, Redirect } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import '../shared/global.styles.css';
