@@ -1,11 +1,24 @@
 import './styles.css'
-// import React, { Component } from 'react'
+import Button from '../../components/UI/Button'
 import React from 'react'
+import { useHistory } from 'react-router-dom';
+import '../../shared/global.styles.css'
 
-export default props => {
+const Main = () => {
+    const history = useHistory();
+
+    const handleClick = () => {
+        history.push('/newGame');
+    }
+
     return (
-        <div>
-            new game
+        <div className='container-cl'>
+            <Button name='Start New Game'
+                onClick={handleClick}
+            >
+            </Button>
         </div>
     )
 }
+
+export default Main;

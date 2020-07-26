@@ -3,18 +3,23 @@ import { BrowserRouter } from 'react-router-dom'
 import { Route, Switch, Redirect } from 'react-router-dom'; // withRouter, Router
 import { Provider } from 'react-redux';
 
-import './App.css';
+import '../shared/global.styles.css';
 import store from '../store'
 import Template from '../components/Template'
+import ContainerWelcome from '../containers/Main'
+import NewGame from '../containers/NewGame'
 import Game from '../containers/Game'
-import Main from '../containers/Main'
+import socket from '../webSocket'
+
+socket.connect();
 
 export default class App extends Component {
   render() {
     const routes = (
       <Switch>
-        <Route path="/game" exact component={Main} />
-        <Route path="/" exact component={Game} />
+        <Route path="/" exact component={ContainerWelcome} />
+        <Route path="/newGame" exact component={NewGame} />
+        <Route path="/game" exact component={Game} />
         <Redirect to="/" />
       </Switch>
     )
@@ -22,13 +27,8 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <BrowserRouter>
-          <Template rotas={routes} />
+          <Template appRoutes={routes} />
         </BrowserRouter>
       </Provider>)
   }
 }
-
-
-
-
-

@@ -14,17 +14,17 @@ export const setPlayer2Name = (name) => {
     }
 }
 
-export const incPlayerCapturedPieces = (pieceColor) => {
+export const startGame = (game) => {
     return {
-        type: actionTypes.INC_PLAYER_CAPTURED_PIECES,
-        pieceColor
+        type: actionTypes.START_GAME,
+        game
     }
 }
 
-export const calculateMoves = (index) => {
+export const createGame = (game) => {
     return {
-        type: actionTypes.CALCULATE_MOVES,
-        index
+        type: actionTypes.CREATE_GAME,
+        game
     }
 }
 

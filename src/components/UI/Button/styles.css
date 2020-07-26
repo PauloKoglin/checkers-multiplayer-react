@@ -1,0 +1,11 @@
+.Button {
+    flex: 1;
+    border: 2px solid white;
+    color: white;
+    padding: 30px;
+    text-align: center;       
+    font-size: xx-large;    
+    border-radius: 8px;
+    background-color: transparent;
+    max-width: 400px;    
+}

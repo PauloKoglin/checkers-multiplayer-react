@@ -8,7 +8,7 @@ export default props =>
         <div className='app'>
             <Header />
             <div className='main'>
-                {props.rotas}
+                {props.appRoutes}
             </div>
             <Footer />
         </div>

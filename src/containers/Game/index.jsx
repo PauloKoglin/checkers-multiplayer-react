@@ -3,20 +3,22 @@ import { connect } from 'react-redux'
 
 import Board from '../../components/Board'
 import Player from '../../components/Player'
+import { Redirect } from 'react-router'
 
 export class Game extends Component {
     render() {
+        if (!this.props.isGameStarting)
+            return (<Redirect to='/newGame' />)
+
         return (
             <div className='game'>
                 <Player
-                    piece={this.props.player1.pieceColor}
                     captures={this.props.capturedRedPieces}
-                    name={this.props.player1.name} />
+                    name={this.props.game ? this.props.game.player2.name : 'Waiting for player'} />
                 <Board />
                 <Player
-                    piece={this.props.player2.pieceColor}
                     captures={this.props.capturedYellowPieces}
-                    name={this.props.player2.name} />
+                    name={this.props.game ? this.props.game.player1.name : 'Waiting for player'} />
             </div>
         )
     }
@@ -24,10 +26,10 @@ export class Game extends Component {
 
 function mapStateToProps(state) {
     return {
-        player1: state.game.player1,
-        player2: state.game.player2,
+        game: state.game.game,
         capturedRedPieces: state.game.capturedRedPieces,
         capturedYellowPieces: state.game.capturedYellowPieces,
+        isGameStarting: state.game.isGameStarting,
     }
 }
 

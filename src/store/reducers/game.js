@@ -1,42 +1,49 @@
 import engine from '../../js/game-engine'
 import * as actionTypes from '../actions/actionTypes'
 import * as types from '../../js/types'
+// import Player from '../../js/classes/Player'
 
-const newPlayer = (pieceColor) => {
-    return {
-        name: 'Player',
-        pieceColor: pieceColor
-    }
-}
 
 const INITIAL_STATE = {
-    waiting: true,
+    player: null,
+    game: null,
+
     squares: engine.initializeBoardSquares(),
     capturedRedPieces: 0,
     capturedYellowPieces: 0,
     selectedSquareIndex: null,
-    player1: newPlayer(types.RED_PIECE),
-    player2: newPlayer(types.YELLOW_PIECE),
+    gameURL: '',
+
+    // isWaiting: true,
     isWhiteNext: true,
+    isLoading: false,
+    isGameStarting: false,
+    isWatingForPlayer: false
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
+
     switch (action.type) {
-        case actionTypes.SET_PLAYER1_NAME:
-            const player1 = state.player1;
-            player1.name = action.name;
+        case actionTypes.CREATE_GAME:
             return {
                 ...state,
-                player1
+                game: action.game,
+                player: action.game.player1,
+                gameURL: window.location.href.concat('?' + action.game.room),
+                isWatingForPlayer: true,
             };
 
-        case actionTypes.SET_PLAYER2_NAME:
-            const player2 = state.player2;
-            player2.name = action.name;
+        case actionTypes.START_GAME:
+            const player = state.player ? state.player : action.game.player2;
+            const moves = engine.calculateMoves(types.YELLOW_PIECE, state.squares);
+            state.squares.join(moves);
+
             return {
                 ...state,
-                player2
-            };
+                player,
+                game: action.game,
+                isGameStarting: true,
+            }
 
         case actionTypes.MOVE_PIECE_TO:
             let squares = state.squares;
@@ -108,7 +115,7 @@ export default function reducer(state = INITIAL_STATE, action) {
 
         case actionTypes.SQUARE_CLICK:
             let clickedSquare = action.square;
-            console.log(action, clickedSquare)
+            // console.log(action, clickedSquare)
             if (!clickedSquare.isSelected) {
                 state.squares[clickedSquare.index].isSelected = true;
                 state.selectedSquareIndex = clickedSquare.index;
@@ -121,27 +128,10 @@ export default function reducer(state = INITIAL_STATE, action) {
 
             return { ...state }
 
-        case actionTypes.START_GAME:
-            let newState = engine.calculateGame(state, action.index);
-
+        default:
             return {
                 ...state,
-                isWhiteNext: true,
-                squares: newState.squares,
+                waiting: true,
             }
-
-        default:
-            if (state.waiting) {
-                state.waiting = !state.player1.name || !state.player2.name;
-                let moves = engine.calculateMoves(types.YELLOW_PIECE, state.squares);
-                state.squares.join(moves);
-
-                return {
-                    ...state,
-                    isWhiteNext: true,
-                }
-            }
-
-            return state;
     }
 }

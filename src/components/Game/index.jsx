@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { connect } from 'react-redux'
+// import { connect } from 'react-redux'
 
 import Board from '../Board'
 import Player from '../Player'
@@ -22,13 +22,13 @@ export class Game extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        player1: state.game.player1,
-        player2: state.game.player2,
-        capturedRedPieces: state.game.capturedRedPieces,
-        capturedYellowPieces: state.game.capturedYellowPieces,
-    }
-}
+// function mapStateToProps(state) {
+//     return {
+//         // player1: state.game.game.player1,
+//         // player2: state.game.game.player1,
+//         // capturedRedPieces: state.game.capturedRedPieces,
+//         // capturedYellowPieces: state.game.capturedYellowPieces,
+//     }
+// }
 
-export default connect(mapStateToProps)(Game)
+// export default connect(mapStateToProps)(Game)

@@ -1,0 +1,74 @@
+@font-face {
+    font-family: defaultFont;
+    font-weight: 100;
+    src: url('../assets/fonts/Roboto-Black.ttf');
+  }
+  
+  :root {
+    --bg-dark-blue: #303036; 
+    --header-height: 10%;
+    --gameArea-height: 85%;
+    --footer-height: 5%;
+  
+    --board-height: 800px;
+    --board-width: 800px;
+  }
+  
+  body {
+    border: 0px;
+    margin: 0px;
+    font-family: defaultFont, sans-serif;
+    background-color: var(--bg-dark-blue);
+    color: whitesmoke;  
+  }
+  
+  .app {
+    margin: 0px;
+    display: grid;
+    grid-template-rows: 
+      var(--header-height)
+      /* var(--gameArea-height) */
+      1fr
+      var(--footer-height);
+    grid-template-areas: 
+      "header"
+      "gameArea"
+      "footer";
+    
+    height: 100vh;
+  }
+  
+  header.header {
+    grid-area: header;
+  }
+  
+  .gameArea {
+    grid-area: gameArea;
+  }
+  
+  footer.footer {
+    grid-area: footer;
+  }
+  
+  .container-cl {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;         
+    /* align-items: stretch;     */
+  }
+
+  .container-row {
+    max-width: 400px;
+    display: flex;
+    flex-direction: row;     
+    justify-content: center;
+    align-items: stretch;
+  }
+
+.al-center {    
+    align-items: center;
+}
+
+.flex-1 {    
+  flex: 1;
+}
