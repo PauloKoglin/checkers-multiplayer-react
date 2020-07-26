@@ -1,5 +1,10 @@
+const server_URL = process.env.SERVER_URL || 'http://localhost:3001';
+
+console.log('Definied api server: ' + server_URL);
+console.log(process.env.SERVER_URL);
+
 const config = {
-    serverURL: process.env.SERVER_URL
+    server_URL
 };
 
 export default config;
