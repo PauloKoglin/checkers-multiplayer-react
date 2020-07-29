@@ -14,11 +14,11 @@ export class Game extends Component {
             <div className='game'>
                 <Player
                     captures={this.props.capturedRedPieces}
-                    name={this.props.game ? this.props.game.player2.name : 'Waiting for player'} />
+                    name={this.props.game ? this.props.game.secondPlayer.name : 'Waiting for player'} />
                 <Board />
                 <Player
                     captures={this.props.capturedYellowPieces}
-                    name={this.props.game ? this.props.game.player1.name : 'Waiting for player'} />
+                    name={this.props.game ? this.props.game.firstPlayer.name : 'Waiting for player'} />
             </div>
         )
     }

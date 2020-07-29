@@ -1,5 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import { ClipLoader } from 'react-spinners'
+import Modal from 'react-modal'
 
 import './styles.css'
 import Square from '../Square'
@@ -8,6 +10,9 @@ import * as actions from '../../store/actions/game'
 import socket from '../../webSocket'
 
 const onClick = (props, square, index) => {
+    if (props.isWatingForPlayer)
+        return
+
     if (props.isNextPlayer) {
         if (!props.selectedSquareIndex || square.isSelected) {
             if (square.piece.isMovable)
@@ -34,9 +39,36 @@ function renderSquares(props) {
 }
 
 const Board = (props) => {
-    return (<div className={'board'.concat(props.waiting ? ' disabled' : '')}>
-        {renderSquares(props)}
-    </div>)
+    const customStyles = {
+        content: {
+            top: '50%',
+            left: '50%',
+            right: 'auto',
+            bottom: 'auto',
+            marginRight: '-50%',
+            backgroundColor: 'transparent',
+            transform: 'translate(-40%, -40%)'
+        }
+    };
+    Modal.setAppElement('#root')
+    const Loading = (
+        <Modal
+            isOpen={props.isWatingForPlayer}
+            style={customStyles}
+        >
+            <div>
+                <ClipLoader loading={props.isWatingForPlayer} color={"#6CF"} />
+                <p>The second player leave the room, wating for reconnection.</p>
+            </div>
+        </Modal>);
+
+    return (
+        <div>
+            {Loading}
+            <div className={'board'.concat(props.isWatingForPlayer ? ' disabled' : '')}>
+                {renderSquares(props)}
+            </div>
+        </div>)
 }
 
 function mapStateToProps(state) {
@@ -53,7 +85,7 @@ function mapStateToProps(state) {
         isNextPlayer: isNextPlayer,
         squares: state.game.squares,
         selectedSquareIndex: state.game.selectedSquareIndex,
-        waiting: false,  // TODO; Retirar a negacao
+        isWatingForPlayer: state.game.isWatingForPlayer,
     }
 }
 

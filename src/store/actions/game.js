@@ -1,19 +1,5 @@
 import * as actionTypes from './actionTypes'
 
-export const setPlayer1Name = (name) => {
-    return {
-        type: actionTypes.SET_PLAYER1_NAME,
-        name
-    }
-}
-
-export const setPlayer2Name = (name) => {
-    return {
-        type: actionTypes.SET_PLAYER2_NAME,
-        name
-    }
-}
-
 export const startGame = (game) => {
     return {
         type: actionTypes.START_GAME,
@@ -25,6 +11,13 @@ export const createGame = (game) => {
     return {
         type: actionTypes.CREATE_GAME,
         game
+    }
+}
+
+export const playerDisconnect = (player) => {
+    return {
+        type: actionTypes.PLAYER_DISCONNECT,
+        player
     }
 }
 

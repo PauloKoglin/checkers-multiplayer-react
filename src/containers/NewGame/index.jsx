@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { PulseLoader, ClipLoader } from 'react-spinners'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-import axios from '../../axios'
+// import axios from '../../axios'
 import * as actions from '../../store/actions/game'
 import Button from '../../components/UI/Button'
 import Input from '../../components/UI/Input'
@@ -41,25 +41,28 @@ class NewGame extends Component {
 
     onCreateGameClick = () => {
         this.setState({ ...this.state, isLoading: true });
-        axios.post('/api/room',
-            {
-                playerName: this.state.controls.input.value
-            }
-        )
-            .then((res) => {
-                const game = res.data;
+        socket.emit('create_room', {
+            playerName: this.state.controls.input.value,
+        });
+        // axios.post('/api/room',
+        //     {
+        //         playerName: this.state.controls.input.value
+        //     }
+        // )
+        //     .then((res) => {
+        //         const game = res.data;
 
-                sessionStorage.setItem('playerName', game.player1.name);
-                sessionStorage.setItem('room', game.room);
+        //         sessionStorage.setItem('playerName', game.player1.name);
+        //         sessionStorage.setItem('room', game.room);
 
-                socket.emit('create_room', game);
-                this.props.onCreateGame(game);
-                this.setState({ ...this.state, isLoading: false });
+        //         socket.emit('create_room', game);
+        //         this.props.onCreateGame(game);
+        //         this.setState({ ...this.state, isLoading: false });
 
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        //     })
+        //     .catch(error => {
+        //         console.log(error);
+        //     });
     }
 
     onJoinGameClick = () => {
@@ -84,7 +87,7 @@ class NewGame extends Component {
         if (this.props.isGameStarting)
             return (<Redirect to='/game' />)
 
-        if (this.state.isLoading)
+        if (this.props.isLoading)
             return (<ClipLoader color={"#6CF"} />);
 
         if (this.props.isWatingForPlayer)
@@ -136,6 +139,7 @@ function mapStateToProps(state) {
     return {
         isWatingForPlayer: state.game.isWatingForPlayer,
         isGameStarting: state.game.isGameStarting,
+        isLoading: state.game.isLoading,
         gameURL: state.game.gameURL
     }
 }

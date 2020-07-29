@@ -7,11 +7,22 @@ const socket = io(config.server_URL, {
     autoConnect: false
 });
 
+socket.on('create_room', (game) => {
+    console.log(game);
+    store.dispatch(actions.createGame(game));
+});
+
 socket.on('start_game', (game) => {
     console.log('The game will start!');
     console.log(game);
 
     store.dispatch(actions.startGame(game));
+});
+
+socket.on('player_disconnect', (player) => {
+    console.log(player);
+
+    store.dispatch(actions.playerDisconnect(player));
 });
 
 socket.on('move_piece_to', (index) => {

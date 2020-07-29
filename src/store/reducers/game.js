@@ -22,24 +22,42 @@ export default function reducer(state = INITIAL_STATE, action) {
 
     switch (action.type) {
         case actionTypes.CREATE_GAME:
+            // get the first player
+            const player1 = action.game.firstPlayer;
+
+            sessionStorage.setItem('playerName', player1.name);
+            sessionStorage.setItem('room', action.game.room);
+
             return {
                 ...state,
                 game: action.game,
-                player: action.game.player1,
+                player: {
+                    playerName: player1.name,
+                    pieceColor: player1.pieceColor
+                },
                 gameURL: window.location.href.concat('?' + action.game.room),
                 isWatingForPlayer: true,
+                isLoading: false,
             };
 
         case actionTypes.START_GAME:
-            const player = state.player ? state.player : action.game.player2;
+            const player2 = state.player ? state.player : action.game.secondPlayer;
             const moves = engine.calculateMoves(types.YELLOW_PIECE, state.squares);
             state.squares.join(moves);
 
             return {
                 ...state,
-                player,
+                player: player2,
                 game: action.game,
                 isGameStarting: true,
+                isWatingForPlayer: false,
+            }
+
+        case actionTypes.PLAYER_DISCONNECT:
+            console.log('player disconnected');
+            return {
+                ...state,
+                isWatingForPlayer: true,
             }
 
         case actionTypes.MOVE_PIECE_TO:
