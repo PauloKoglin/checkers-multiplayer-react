@@ -19,6 +19,11 @@ socket.on('start_game', (game) => {
     store.dispatch(actions.startGame(game));
 });
 
+// socket.on('reconnect_room', () => {  
+
+//     store.dispatch(actions.startGame(game));
+// });
+
 socket.on('player_disconnect', (player) => {
     console.log(player);
 

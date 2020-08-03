@@ -47,7 +47,8 @@ const Board = (props) => {
             bottom: 'auto',
             marginRight: '-50%',
             backgroundColor: 'transparent',
-            transform: 'translate(-40%, -40%)'
+            transform: 'translate(-40%, -40%)',
+            color: 'black'
         }
     };
     Modal.setAppElement('#root')
@@ -56,9 +57,9 @@ const Board = (props) => {
             isOpen={props.isWatingForPlayer}
             style={customStyles}
         >
-            <div>
-                <ClipLoader loading={props.isWatingForPlayer} color={"#6CF"} />
-                <p>The second player leave the room, wating for reconnection.</p>
+            <div className='container-cl al-center'>
+                <ClipLoader loading={props.isWatingForPlayer} color={"#8AF"} />
+                <p>The second player leave the room.</p>
             </div>
         </Modal>);
 

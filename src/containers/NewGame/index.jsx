@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import { PulseLoader, ClipLoader } from 'react-spinners'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-// import axios from '../../axios'
 import * as actions from '../../store/actions/game'
 import Button from '../../components/UI/Button'
 import Input from '../../components/UI/Input'
@@ -44,25 +43,6 @@ class NewGame extends Component {
         socket.emit('create_room', {
             playerName: this.state.controls.input.value,
         });
-        // axios.post('/api/room',
-        //     {
-        //         playerName: this.state.controls.input.value
-        //     }
-        // )
-        //     .then((res) => {
-        //         const game = res.data;
-
-        //         sessionStorage.setItem('playerName', game.player1.name);
-        //         sessionStorage.setItem('room', game.room);
-
-        //         socket.emit('create_room', game);
-        //         this.props.onCreateGame(game);
-        //         this.setState({ ...this.state, isLoading: false });
-
-        //     })
-        //     .catch(error => {
-        //         console.log(error);
-        //     });
     }
 
     onJoinGameClick = () => {
@@ -74,11 +54,6 @@ class NewGame extends Component {
 
         socket.emit('join_room', playerName, room);
         socket.emit('start_game', room);
-    }
-
-    copyToClipBoard(e) {
-        this.textarea.current.select();
-        document.execCommand('copy');
     }
 
     render() {

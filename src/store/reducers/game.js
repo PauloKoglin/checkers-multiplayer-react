@@ -25,8 +25,8 @@ export default function reducer(state = INITIAL_STATE, action) {
             // get the first player
             const player1 = action.game.firstPlayer;
 
-            sessionStorage.setItem('playerName', player1.name);
-            sessionStorage.setItem('room', action.game.room);
+            sessionStorage.setItem('player_name', player1.name);
+            sessionStorage.setItem('last_room', action.game.room);
 
             return {
                 ...state,
@@ -58,6 +58,12 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 isWatingForPlayer: true,
+            }
+
+        case actionTypes.PLAYER_RECONNECT:
+            return {
+                ...state,
+                isWatingForPlayer: false,
             }
 
         case actionTypes.MOVE_PIECE_TO:

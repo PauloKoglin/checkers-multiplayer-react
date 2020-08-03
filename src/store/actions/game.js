@@ -21,6 +21,13 @@ export const playerDisconnect = (player) => {
     }
 }
 
+export const playerreconnect = () => {
+    return {
+        type: actionTypes.PLAYER_RECONNECT,
+    }
+}
+
+
 export const squareClick = (square) => {
     return {
         type: actionTypes.SQUARE_CLICK,
