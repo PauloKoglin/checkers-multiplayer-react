@@ -18,11 +18,9 @@ function App() {
     <Provider store={store}>
       <div id='app-container'>
         <Header />
-        {/* <div className='main'> */}
         <div id='app-main-area'>
           <Routes />
         </div>
-        {/* </div> */}
         <Footer />
       </div>
     </Provider>)
