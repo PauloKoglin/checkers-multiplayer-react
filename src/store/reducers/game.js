@@ -22,7 +22,6 @@ export default function reducer(state = INITIAL_STATE, action) {
 
     switch (action.type) {
         case actionTypes.CREATE_GAME:
-            // get the first player
             const player1 = action.game.firstPlayer;
 
             sessionStorage.setItem('player_name', player1.name);
@@ -54,7 +53,6 @@ export default function reducer(state = INITIAL_STATE, action) {
             }
 
         case actionTypes.PLAYER_DISCONNECT:
-            console.log('player disconnected');
             return {
                 ...state,
                 isWatingForPlayer: true,
@@ -152,7 +150,6 @@ export default function reducer(state = INITIAL_STATE, action) {
         default:
             return {
                 ...state,
-                waiting: true,
             }
     }
 }

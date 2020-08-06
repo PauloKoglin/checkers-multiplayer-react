@@ -1,7 +1,13 @@
 import './styles.css'
 import React from 'react'
 
-export default props =>
-    <header className='header'>
-        <h1>Checkers Multiplayer</h1>
-    </header>
+function Header() {
+    return (
+        <header>
+            <h1>Checkers Multiplayer</h1>
+        </header>
+    )
+}
+
+export default Header;
+

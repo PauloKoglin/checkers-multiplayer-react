@@ -1,0 +1,60 @@
+:root {
+  --color-background: #303036; 
+  --color-backgroud-secondary: #4E5283; 
+  
+  --color-button-text: #EFFFFF;
+  --color-button-boarder: #EFFFFF;
+
+  --size-button-text: 2.0rem;
+  --size-button-boarder-radius: 8px;
+
+  --board-height: 800px;
+  --board-width: 800px;
+}
+
+body {
+  border: 0px;
+  margin: 0px;
+  
+  color: whitesmoke;
+  font-family: sans-serif;
+  
+  background-color: var(--color-background); 
+}
+
+#app-container {
+  margin: 0px;
+  display: grid;
+  grid-template-rows:     
+    1fr
+    8fr
+    0.5fr;    
+  grid-template-areas: 
+    "header"
+    "gameArea"
+    "footer";
+  
+  height: 100vh;
+}
+
+header  {
+  grid-area: header;
+}
+
+#app-main-area {
+  grid-area: gameArea;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;  
+}
+
+footer {
+  grid-area: footer;
+}
+
+.container-cl {
+  max-width: 400px;
+  display: flex;
+  flex-direction: column; 
+}

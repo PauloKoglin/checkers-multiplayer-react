@@ -67,19 +67,16 @@ class NewGame extends Component {
 
         if (this.props.isWatingForPlayer)
             return (
-                <div className='container-cl al-center'>
-                    <div>
-                        <p>Waiting for secound player to start the game</p>
+                <div id='wait-for-player-container'>
+                    <p>Waiting for secound player to start the game</p>
+                    <div className='Loader'>
+                        <PulseLoader
+                            size={20}
+                            color={"#6CF"}
+                            loading={true} />
                     </div>
-                    <PulseLoader
-                        className='Loader'
-                        size={20}
-                        color={"#6CF"}
-                        loading={true} />
-                    <div>
-                        <h2> Invite your friend to play with you! </h2>
-                    </div>
-                    <div className='container-row'>
+                    <h2> Invite your friend to play with you! </h2>
+                    <div className='link-copy-container'>
                         <textarea
                             className='clipboard'
                             value={this.props.gameURL}

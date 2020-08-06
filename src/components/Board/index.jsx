@@ -51,6 +51,7 @@ const Board = (props) => {
             color: 'black'
         }
     };
+
     Modal.setAppElement('#root')
     const Loading = (
         <Modal

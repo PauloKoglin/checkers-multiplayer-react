@@ -1,5 +1,43 @@
-.clipboard {
-    width: 315px;
-    font-size: small;
-    resize:none;
+#wait-for-player-container {
+    width: 700px;
+    max-width: 700px;    
+    text-align: center;  
+}
+
+#wait-for-player-container p {    
+    font-size: large;
+    margin-bottom: 2.2rem;
+}
+
+#wait-for-player-container .Loader {
+    margin-bottom: 6.5rem;    
+}
+
+#wait-for-player-container h2 {
+    font-size: 2.2rem;
+}
+
+.link-copy-container {
+    display: flex;
+    flex-direction: row;    
+    justify-content: center;
+    height: 2.5rem;
+}
+
+.link-copy-container button {
+    background-color: #43D00F;
+    border: 0px;      
+    border-radius: 0px 3px 3px 0px;    
+    width: 12%;
+    transition: background-color= 2s;    
+}
+
+.link-copy-container button:hover {
+    background-color: #47b41f;  
+}
+
+.link-copy-container textarea {    
+    width: 70%;
+    resize: none;        
+    font-size: 1.3rem;    
 }

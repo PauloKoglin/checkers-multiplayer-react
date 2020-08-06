@@ -19,15 +19,17 @@ body {
   margin: 0px;
   font-family: defaultFont, sans-serif;
   background-color: var(--bg-dark-blue);
-  color: whitesmoke;  
+  color: whitesmoke;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .app {
   margin: 0px;
   display: grid;
   grid-template-rows: 
-    var(--header-height)
-    /* var(--gameArea-height) */
+    var(--header-height)    
     1fr
     var(--footer-height);
   grid-template-areas: 

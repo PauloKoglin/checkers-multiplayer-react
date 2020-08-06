@@ -1,11 +1,9 @@
-.Button {
-    flex: 1;
-    border: 2px solid white;
-    color: white;
-    padding: 30px;
-    text-align: center;       
-    font-size: xx-large;    
-    border-radius: 8px;
-    background-color: transparent;
-    max-width: 400px;    
+.motion-button {        
+    border: 1px solid ;
+    border-color: var(--color-button-boarder);
+    color: var(--color-button-text);
+    padding: 2.0rem;    
+    font-size: var(--size-button-text);    
+    border-radius: var(--size-button-boarder-radius);  
+    background-color: transparent;    
 }
