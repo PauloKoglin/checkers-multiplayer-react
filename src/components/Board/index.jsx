@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 
 import './styles.css'
-import types from '../../js/types'
+import types from '../../types'
 
 import Square from '../Square'
 import socket from '../../webSocket'
@@ -14,11 +14,18 @@ const onClick = (props, square, index) => {
     if (props.isNextPlayer) {
         if (!props.selectedSquareIndex || square.isSelected) {
             if (square.piece.isMovable)
-                return socket.emit('select_square', props.game.room, square);
+                return socket.emit('select_square', {
+                    room: props.game.room,
+                    clickedSquare: square
+                });
         }
 
         if (square.isPossibleMove)
-            return socket.emit('move_piece_to', props.game.room, index);
+            return socket.emit('move_piece_to', {
+                room: props.game.room,
+                selectedIndex: props.selectedSquareIndex,
+                index
+            });
     }
 
     return null

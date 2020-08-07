@@ -9,9 +9,9 @@ const socket = io(config.server_URL, {
 });
 
 socket.on('create_room', (game) => store.dispatch(actions.createGame(game)));
-socket.on('start_game', (game) => store.dispatch(actions.startGame(game)));
+socket.on('start_game', (payload) => store.dispatch(actions.startGame(payload)));
 socket.on('player_disconnect', (player) => store.dispatch(actions.playerDisconnect(player)));
-socket.on('move_piece_to', (index) => store.dispatch(actions.movePieceTo(index)));
+socket.on('move_piece_to', (payload) => store.dispatch(actions.movePieceTo(payload)));
 socket.on('select_square', (square) => store.dispatch(actions.squareClick(square)));
 
 export default socket;

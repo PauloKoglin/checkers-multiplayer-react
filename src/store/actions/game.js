@@ -1,9 +1,9 @@
 import * as actionTypes from './actionTypes'
 
-export const startGame = (game) => {
+export const startGame = (payload) => {
     return {
         type: actionTypes.START_GAME,
-        game
+        payload
     }
 }
 
@@ -28,17 +28,17 @@ export const playerreconnect = () => {
 }
 
 
-export const squareClick = (square) => {
+export const squareClick = (payload) => {
     return {
         type: actionTypes.SQUARE_CLICK,
-        square
+        payload
     }
 }
 
-export const movePieceTo = (index) => {
+export const movePieceTo = (payload) => {
     return {
         type: actionTypes.MOVE_PIECE_TO,
-        index,
+        payload,
     }
 }
 
