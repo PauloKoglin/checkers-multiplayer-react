@@ -1,6 +1,6 @@
-import engine from '../../js/game-engine'
-import * as actionTypes from '../actions/actionTypes'
-import * as types from '../../js/types'
+import engine from '../../js/game-engine';
+import * as actionTypes from '../actions/actionTypes';
+import types from '../../js/types';
 
 const INITIAL_STATE = {
     player: null,

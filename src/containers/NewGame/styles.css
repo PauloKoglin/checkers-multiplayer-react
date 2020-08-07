@@ -5,7 +5,7 @@
 }
 
 #wait-for-player-container p {    
-    font-size: large;
+    font-size: 1.1rem;
     margin-bottom: 2.2rem;
 }
 
@@ -26,7 +26,7 @@
 
 .link-copy-container button {
     background-color: #43D00F;
-    border: 0px;      
+    border-style: none;          
     border-radius: 0px 3px 3px 0px;    
     width: 12%;
     transition: background-color= 2s;    
@@ -39,5 +39,44 @@
 .link-copy-container textarea {    
     width: 70%;
     resize: none;        
-    font-size: 1.3rem;    
+    font-size: 1.3rem;   
+    border: 0; 
+}
+
+@media (max-width: 700px) {
+    #wait-for-player-container {        
+        width: fit-content;
+        max-width: 80%;    
+    }
+
+    #wait-for-player-container h2 {
+        font-size: 1.5rem;
+    }
+
+    #wait-for-player-container .Loader {
+        margin-bottom: 1.5rem;    
+    }
+    
+    .link-copy-container {                
+        display: inline-block;              
+        width: 100%;
+    }
+
+    .link-copy-container textarea {       
+        width: 99%;   
+        font-size: 1.0rem;     
+        height: 2.0rem; 
+    }
+
+    .link-copy-container button {       
+        margin-top: 0.5rem;
+    }
+
+    .link-copy-container button {        
+        height: 2.5rem;
+        width: 100%;
+        border-radius: 3px;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
 }

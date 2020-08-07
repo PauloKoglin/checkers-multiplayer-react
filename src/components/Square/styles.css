@@ -1,42 +1,48 @@
-.square {
-    float: left;
-    width: 80px;
-    height: 80px;
-    font-size:50px;
-    text-align:center;
-    display: table-cell;
-    vertical-align:middle;   
+#square-container {
+    display: flex;    
+    align-items: center;    
+    justify-content: center;    
 }
 
 .darkyellow {    
-    background-color: rgb(143, 113, 14);        
+    background-color: var(--color-background-square-hell);
 }
 
 .brown {    
-    background-color: rgb(78, 59, 20);    
+    background-color: var(--color-background-square-dark);
+}
+
+#square-piece {    
+    border-radius: 50%;
+    width: var(--piece-size-default);
+    height: var(--piece-size-default);
+    border-width: var(--piece-boarder-size-default);
+    border-style: solid;
 }
 
 .red {
-    background-color: rgb(216, 84, 84);
-    border: 5px solid rgb(177, 33, 33);
-    border-radius: 80%;
-    padding: 25px;
-    margin: 10px;
+    background-color: var(--color-background-piece-dark);
+    border-color: var(--color-border-piece-dark);
 }
 
 .yellow {
-    background-color: rgb(240, 217, 114);
-    border: 5px solid rgb(201, 192, 153);    
-    border-radius: 80%;
-    padding: 25px;
-    margin: 10px;
+    background-color: var(--color-background-piece-hell);
+    border-color: var(--color-border-piece-hell);    
 }
 
 .move {     
-    background: linear-gradient(rgb(17, 110, 17, .5), rgb(16, 110, 16, .5))    
+    background-color: var(--color-background-piece-action);
 }
 
 .checker {
     border: 5px dotted black;    
     border-style: dashed;
+}
+
+@media (max-width: 900px) {    
+    #square-piece {    
+        width: var(--piece-size-mobile);
+        height: var(--piece-size-mobile);    
+        border-width: var(--piece-boarder-size-mobile);        
+    }
 }

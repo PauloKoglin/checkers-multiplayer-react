@@ -5,11 +5,39 @@
   --color-button-text: #EFFFFF;
   --color-button-boarder: #EFFFFF;
 
-  --size-button-text: 2.0rem;
-  --size-button-boarder-radius: 8px;
+  --color-background-square-hell: rgb(143, 113, 14);        
+  --color-background-square-dark: rgb(78, 59, 20);
 
-  --board-height: 800px;
-  --board-width: 800px;
+  --color-background-piece-dark: rgb(218, 67, 67);
+  --color-border-piece-dark: rgb(177, 33, 33);
+
+  --color-background-piece-hell: rgb(240, 217, 114);
+  --color-border-piece-hell: rgb(192, 181, 133);  
+
+  --color-background-piece-action: rgba(65, 151, 65, 0.5); 
+
+  --size-button-text: 2.0rem;
+  --size-button-boarder-radius: 8px;  
+
+
+  --square-width-mobile: 45px;
+  --square-heigth-mobile: 45px;
+  --square-width-default: 80px;
+  --square-heigth-default: 80px;  
+
+  
+  --piece-size-mobile: 25px;
+  --piece-size-default: 50px;
+  --piece-boarder-size-mobile: 3px;
+  --piece-boarder-size-default: 5px;
+
+
+  --board-boarder-size-mobile: 10px;
+  --board-boarder-size-default: 20px;  
+  --board-width-mobile: 620px;
+  --board-heigth-mobile: 620px;
+  --board-width-default: 800px;
+  --board-heigth-default: 800px;
 }
 
 body {
@@ -22,19 +50,19 @@ body {
   background-color: var(--color-background); 
 }
 
-#app-container {
-  margin: 0px;
-  display: grid;
+#app-container {  
+  display: grid;  
   grid-template-rows:     
     1fr
     8fr
-    0.5fr;    
+    0.5fr;
   grid-template-areas: 
     "header"
     "gameArea"
     "footer";
   
-  height: 100vh;
+  height: 100vh;  
+  /* width: 100vw;   */
 }
 
 header  {

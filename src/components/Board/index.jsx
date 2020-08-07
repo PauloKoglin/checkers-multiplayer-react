@@ -1,12 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { ClipLoader } from 'react-spinners'
-import Modal from 'react-modal'
 
 import './styles.css'
+import types from '../../js/types'
+
 import Square from '../Square'
-import * as types from '../../js/types/index'
-import * as actions from '../../store/actions/game'
 import socket from '../../webSocket'
 
 const onClick = (props, square, index) => {
@@ -38,36 +36,14 @@ function renderSquares(props) {
     });
 }
 
-const Board = (props) => {
-    const customStyles = {
-        content: {
-            top: '50%',
-            left: '50%',
-            right: 'auto',
-            bottom: 'auto',
-            marginRight: '-50%',
-            backgroundColor: 'transparent',
-            transform: 'translate(-40%, -40%)',
-            color: 'black'
-        }
-    };
-
-    Modal.setAppElement('#root')
-    const Loading = (
-        <Modal
-            isOpen={props.isWatingForPlayer}
-            style={customStyles}
-        >
-            <div className='container-cl al-center'>
-                <ClipLoader loading={props.isWatingForPlayer} color={"#8AF"} />
-                <p>The second player leave the room.</p>
-            </div>
-        </Modal>);
+function Board(props) {
+    let disabled;
+    if (props.isWatingForPlayer)
+        disabled = 'disabled';
 
     return (
         <div>
-            {Loading}
-            <div className={'board'.concat(props.isWatingForPlayer ? ' disabled' : '')}>
+            <div id='game-board-container' className={disabled}>
                 {renderSquares(props)}
             </div>
         </div>)
@@ -91,11 +67,4 @@ function mapStateToProps(state) {
     }
 }
 
-function mapDispatchToProps(dispatch) {
-    return {
-        onSquareClick: (square) => dispatch(actions.squareClick(square)),
-        movePieceTo: (index) => dispatch(actions.movePieceTo(index)),
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Board)
+export default connect(mapStateToProps)(Board)

@@ -1,17 +1,23 @@
-.player {        
+#player-container {        
     display: flex;    
     flex-direction: row;
-    justify-content: space-between;
-    column-count: 10;
-    margin-bottom: 10px;
-    margin-top: 10px;    
-    border: 2px solid grey;    
+    justify-content: space-between;    
 }
 
 .name {
-    padding-left: 10px;    
+    padding-left: 1.5rem;
 }
 
 .captures {
-    padding-right: 10px;    
+    padding-right: 1.0rem;
+    font-size: 1.5rem;
+    align-self: center;
+}
+
+@media (max-width: 900px) {
+    .captures, .name {  
+        padding: 0rem;      
+        font-size: 1.1rem;        
+    } 
+
 }
