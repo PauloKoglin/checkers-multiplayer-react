@@ -1,14 +1,13 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import { PulseLoader, ClipLoader } from 'react-spinners'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { PulseLoader, ClipLoader } from 'react-spinners';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-import * as actions from '../../store/actions/game'
-import Button from '../../components/UI/Button'
-import Input from '../../components/UI/Input'
-import './styles.css'
-import socket from '../../webSocket'
-import { Redirect } from 'react-router'
+import * as actions from '../../store/actions/game';
+import Button from '../../components/UI/Button';
+import './styles.css';
+import socket from '../../webSocket';
+import { Redirect } from 'react-router';
 
 class NewGame extends Component {
     state = {
@@ -68,7 +67,7 @@ class NewGame extends Component {
         if (this.props.isWatingForPlayer)
             return (
                 <div id='wait-for-player-container'>
-                    <p>Waiting for secound player to start the game</p>
+                    <p>Waiting second player join the game...</p>
                     <div className='Loader'>
                         <PulseLoader
                             size={20}
@@ -92,14 +91,18 @@ class NewGame extends Component {
             );
 
         return (
-            <div className='container-cl'>
-                <Input
+            <div
+                id='start-game-container'
+            >
+                <input
+                    autoFocus={true}
                     placeholder={this.state.controls.input.placeholder}
                     required={this.state.controls.input.required}
                     value={this.state.controls.input.value}
                     onChange={this.handleInputChange}
                 />
-                <Button name={button.name}
+                <Button
+                    name={button.name}
                     onClick={button.onClick}
                 />
             </div>

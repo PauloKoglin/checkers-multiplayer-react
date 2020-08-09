@@ -1,9 +1,11 @@
 .motion-button {        
-    border: 1px solid ;
+    border: none;
     border-color: var(--color-button-boarder);
     color: var(--color-button-text);
+    font-weight: 700;
     padding: 2.0rem;    
     font-size: var(--size-button-text);    
     border-radius: var(--size-button-boarder-radius);  
-    background-color: transparent;    
+    background-color: var(--color-background-button-primary);    
+    outline: none;
 }

@@ -7,7 +7,7 @@ function Button(props) {
     return (
         <motion.button
             className='motion-button'
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.06 }}
             whileTap={{ scale: 0.9 }}
             onClick={props.onClick}
         >

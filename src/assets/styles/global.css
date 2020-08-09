@@ -2,8 +2,14 @@
   --color-background: #303036; 
   --color-backgroud-secondary: #4E5283; 
   
-  --color-button-text: #EFFFFF;
+  --color-button-text: #e0eeee;
   --color-button-boarder: #EFFFFF;
+
+  --color-background-button-primary: #4cb924;
+  --color-background-button-primary-hover: #3d991c;
+
+  --color-background-button-secondary: #F22;
+  --color-background-button-secondary-hover: rgb(214, 29, 29);
 
   --color-background-square-hell: rgb(143, 113, 14);        
   --color-background-square-dark: rgb(78, 59, 20);
@@ -44,7 +50,7 @@ body {
   border: 0px;
   margin: 0px;
   
-  color: whitesmoke;
+  color: rgb(253, 244, 244);
   font-family: sans-serif;
   
   background-color: var(--color-background); 
@@ -80,9 +86,9 @@ header  {
 footer {
   grid-area: footer;
 }
-
+/* 
 .container-cl {
   max-width: 400px;
   display: flex;
   flex-direction: column; 
-}
+} */

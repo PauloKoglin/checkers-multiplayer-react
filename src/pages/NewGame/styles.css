@@ -1,3 +1,21 @@
+#start-game-container {
+    max-width: 400px;
+    display: flex;
+    flex-direction: column; 
+}
+
+#start-game-container input {    
+    border: none;
+    color: black;
+    padding: 30px;
+    text-align: center;       
+    font-size: 2.0rem;
+    border-radius: 8px;
+    background-color:white;
+    margin-bottom: 10px;
+    outline: none;
+}
+
 #wait-for-player-container {
     width: 700px;
     max-width: 700px;    
@@ -5,7 +23,7 @@
 }
 
 #wait-for-player-container p {    
-    font-size: 1.1rem;
+    font-size: 1.6rem;
     margin-bottom: 2.2rem;
 }
 
@@ -25,18 +43,24 @@
 }
 
 .link-copy-container button {
-    background-color: #43D00F;
+    background-color: var(--color-background-button-primary);
     border-style: none;          
-    border-radius: 0px 3px 3px 0px;    
+    border-radius: 3px 3px 3px 3px;  
+    color: var(--color-button-text);  
+    font-weight: 700;    
     width: 12%;
-    transition: background-color= 2s;    
+    margin-left: 5px;
+    outline: none;
+    transition: background-color 0.5s;    
 }
 
 .link-copy-container button:hover {
-    background-color: #47b41f;  
+    background-color: var(--color-background-button-primary-hover);  
 }
 
-.link-copy-container textarea {    
+.link-copy-container textarea {   
+    outline: none; 
+    border-radius: 3px 3px 3px 3px; 
     width: 70%;
     resize: none;        
     font-size: 1.3rem;   
@@ -69,6 +93,7 @@
     }
 
     .link-copy-container button {       
+        margin: 0;
         margin-top: 0.5rem;
     }
 

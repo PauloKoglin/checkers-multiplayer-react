@@ -5,7 +5,7 @@ import Button from '../../components/UI/Button';
 
 import './styles.css'
 
-function LandingPage() {
+function Landing() {
     const history = useHistory();
 
     const handleClick = () => {
@@ -13,11 +13,11 @@ function LandingPage() {
     }
 
     return (
-        <Button name='Start New Game'
+        <Button
+            name='Start New Game'
             onClick={handleClick}
-        >
-        </Button>
+        />
     )
 }
 
-export default LandingPage;
+export default Landing;

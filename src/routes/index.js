@@ -2,9 +2,9 @@ import React from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom'
 
-import Landing from '../containers/Landing'
-import NewGame from '../containers/NewGame'
-import Game from '../containers/Game'
+import Landing from '../pages/Landing'
+import NewGame from '../pages/NewGame'
+import Game from '../pages/Game'
 
 function Routes() {
     return (
