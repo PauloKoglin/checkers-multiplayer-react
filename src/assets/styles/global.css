@@ -29,7 +29,9 @@
   --square-width-mobile: 45px;
   --square-heigth-mobile: 45px;
   --square-width-default: 80px;
-  --square-heigth-default: 80px;  
+  --square-heigth-default: 80px;
+  --square-width-middle: 54px;
+  --square-heigth-middle: 54px;
 
   
   --piece-size-mobile: 25px;
@@ -44,6 +46,8 @@
   --board-heigth-mobile: 620px;
   --board-width-default: 800px;
   --board-heigth-default: 800px;
+  --board-width-midle: 700px;
+  --board-heigth-midle: 700px;
 }
 
 body {

@@ -1,4 +1,4 @@
-.motion-button {        
+#motion-button {        
     border: none;
     border-color: var(--color-button-boarder);
     color: var(--color-button-text);
@@ -8,4 +8,10 @@
     border-radius: var(--size-button-boarder-radius);  
     background-color: var(--color-background-button-primary);    
     outline: none;
+}
+
+@media (max-height: 800px) {
+    /* #motion-button {         */
+        /* height: 50px; */
+    /* } */
 }

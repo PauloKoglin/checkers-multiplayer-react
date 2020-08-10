@@ -14,8 +14,10 @@
 
 #square-piece {    
     border-radius: 50%;
-    width: var(--piece-size-default);
-    height: var(--piece-size-default);
+    /* width: var(--piece-size-default);
+    height: var(--piece-size-default); */
+    width: 70%;
+    height: 70%;
     border-width: var(--piece-boarder-size-default);
     border-style: solid;
 }
@@ -41,8 +43,8 @@
 
 @media (max-width: 900px) {    
     #square-piece {    
-        width: var(--piece-size-mobile);
-        height: var(--piece-size-mobile);    
+        /* width: var(--piece-size-mobile);
+        height: var(--piece-size-mobile);     */
         border-width: var(--piece-boarder-size-mobile);        
     }
 }

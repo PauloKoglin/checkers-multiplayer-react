@@ -58,7 +58,7 @@ class NewGame extends Component {
     render() {
         const button = this.state.gameRoom ? this.state.controls.joinGameButton : this.state.controls.createGameButton;
 
-        if (this.props.isGameStarting)
+        if (this.props.isGameStarted)
             return (<Redirect to='/game' />)
 
         if (this.props.isLoading)
@@ -78,11 +78,11 @@ class NewGame extends Component {
                     <div className='link-copy-container'>
                         <textarea
                             className='clipboard'
-                            value={this.props.gameURL}
+                            value={this.props.joinGameURL}
                             readOnly={true}
                             rows={1} />
                         <CopyToClipboard
-                            text={this.props.gameURL}
+                            text={this.props.joinGameURL}
                         >
                             <button>Copy</button>
                         </CopyToClipboard>
@@ -113,9 +113,9 @@ class NewGame extends Component {
 function mapStateToProps(state) {
     return {
         isWatingForPlayer: state.game.isWatingForPlayer,
-        isGameStarting: state.game.isGameStarting,
+        isGameStarted: state.game.isGameStarted,
         isLoading: state.game.isLoading,
-        gameURL: state.game.gameURL
+        joinGameURL: state.game.joinGameURL
     }
 }
 

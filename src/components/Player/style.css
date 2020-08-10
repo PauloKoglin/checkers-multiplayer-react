@@ -14,7 +14,16 @@
     align-self: center;
 }
 
-@media (max-width: 900px) {
+
+@media (max-height: 800px) {
+    .captures, .name {  
+        padding: 0rem;      
+        font-size: 1.0rem;        
+    } 
+
+}
+
+@media (max-width: 800px) {
     .captures, .name {  
         padding: 0rem;      
         font-size: 1.1rem;        

@@ -8,11 +8,11 @@ const INITIAL_STATE = {
     capturedRedPieces: 0,
     capturedYellowPieces: 0,
     selectedSquareIndex: null,
-    gameURL: '',
+    joinGameURL: '',
 
     isWhiteNext: true,
     isLoading: false,
-    isGameStarting: false,
+    isGameStarted: false,
     isWatingForPlayer: false
 }
 
@@ -24,13 +24,12 @@ function startGame(state, action) {
         game,
         squares,
         player: player2,
-        isGameStarting: true,
+        isGameStarted: true,
         isWatingForPlayer: false,
     }
 }
 
 export default function reducer(state = INITIAL_STATE, action) {
-
     switch (action.type) {
         case actionTypes.CREATE_GAME:
             const player1 = action.game.firstPlayer;
@@ -42,7 +41,7 @@ export default function reducer(state = INITIAL_STATE, action) {
                     playerName: player1.name,
                     pieceColor: player1.pieceColor
                 },
-                gameURL: window.location.href.concat('?' + action.game.room),
+                joinGameURL: window.location.href.concat('?' + action.game.room),
                 isWatingForPlayer: true,
                 isLoading: false,
             };
@@ -77,6 +76,13 @@ export default function reducer(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 ...action.payload
+            }
+
+        case actionTypes.END_GAME:
+            const player = state.player;
+            return {
+                ...INITIAL_STATE,
+                player
             }
 
         default:

@@ -9,6 +9,7 @@ import types from '../../types'
 import Square from '../Square'
 import axios from "../../services";
 import socket from '../../webSocket'
+import * as actions from '../../store/actions/game';
 
 function Board(props) {
 
@@ -57,7 +58,7 @@ function Board(props) {
     function handleEndGameClick() {
         axios.delete('rooms/' + props.game.room)
             .then(() => {
-                console.log('call reducer');
+                props.endGame();
             });
     };
 
@@ -117,4 +118,10 @@ function mapStateToProps(state) {
     }
 }
 
-export default connect(mapStateToProps)(Board)
+function mapDispatchToProps(dispatch) {
+    return {
+        endGame: () => dispatch(actions.endGame()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Board)

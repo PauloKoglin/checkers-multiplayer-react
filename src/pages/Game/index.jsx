@@ -7,7 +7,7 @@ import { Redirect } from 'react-router'
 
 export class Game extends Component {
     render() {
-        if (!this.props.isGameStarting)
+        if (!this.props.isGameStarted)
             return (<Redirect to='/newGame' />)
 
         return (
@@ -29,7 +29,7 @@ function mapStateToProps(state) {
         game: state.game.game,
         capturedRedPieces: state.game.capturedRedPieces,
         capturedYellowPieces: state.game.capturedYellowPieces,
-        isGameStarting: state.game.isGameStarting,
+        isGameStarted: state.game.isGameStarted,
     }
 }
 

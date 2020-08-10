@@ -38,6 +38,15 @@
     opacity: 30%;    
 }
 
+@media (max-height: 800px) {
+    #game-board-container {                
+        display: grid;     
+        grid-template-rows: repeat(10, var(--square-width-middle));
+        grid-template-columns: repeat(10, var(--square-heigth-middle));    
+        border: var(--board-boarder-size-mobile) solid rgb(168, 156, 26);  
+    }
+}
+
 @media (max-width: 900px) {
     #game-board-container {                
         display: grid;     

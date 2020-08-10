@@ -1,6 +1,7 @@
-export const START_GAME = 'START_GAME'
-export const CREATE_GAME = 'CREATE_GAME'
-export const PLAYER_DISCONNECT = 'PLAYER_DISCONNECT'
-export const PLAYER_RECONNECT = 'PLAYER_RECONNECT'
-export const SQUARE_CLICK = 'SQUARE_CLICK'
-export const MOVE_PIECE_TO = 'MOVE_PIECE_TO'
+export const START_GAME = 'START_GAME';
+export const CREATE_GAME = 'CREATE_GAME';
+export const PLAYER_DISCONNECT = 'PLAYER_DISCONNECT';
+export const PLAYER_RECONNECT = 'PLAYER_RECONNECT';
+export const SQUARE_CLICK = 'SQUARE_CLICK';
+export const MOVE_PIECE_TO = 'MOVE_PIECE_TO';
+export const END_GAME = 'END_GAME';

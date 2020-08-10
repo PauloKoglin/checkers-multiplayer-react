@@ -27,7 +27,6 @@ export const playerreconnect = () => {
     }
 }
 
-
 export const squareClick = (payload) => {
     return {
         type: actionTypes.SQUARE_CLICK,
@@ -42,4 +41,8 @@ export const movePieceTo = (payload) => {
     }
 }
 
-
+export const endGame = () => {
+    return {
+        type: actionTypes.END_GAME,
+    }
+}
