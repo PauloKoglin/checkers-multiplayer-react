@@ -95,6 +95,7 @@ class NewGame extends Component {
                 id='start-game-container'
             >
                 <input
+                    id='input'
                     autoFocus={true}
                     placeholder={this.state.controls.input.placeholder}
                     required={this.state.controls.input.required}

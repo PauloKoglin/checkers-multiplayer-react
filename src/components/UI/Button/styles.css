@@ -11,7 +11,9 @@
 }
 
 @media (max-height: 800px) {
-    /* #motion-button {         */
-        /* height: 50px; */
-    /* } */
+    #motion-button {         
+        height: 50px;
+        padding: 1.0rem;
+        font-size: 1.2rem;
+     }
 }

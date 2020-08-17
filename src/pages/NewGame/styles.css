@@ -67,6 +67,40 @@
     border: 0; 
 }
 
+@media (max-height: 800px) {
+    #start-game-container input {         
+        height: 25px;
+        padding: 1.2rem;
+        font-size: 1.2rem;
+     }
+        
+    #wait-for-player-container p {    
+        font-size: 1.0rem;
+        margin-bottom: 2.5rem;
+    }
+
+    #wait-for-player-container .Loader {
+        margin-bottom: 3.0rem;    
+    }
+
+    #wait-for-player-container h2 {
+        font-size: 1.6rem;
+    }
+
+    .link-copy-container textarea {       
+        width: 55%;   
+        font-size: 1.0rem;     
+        height: 1.5rem; 
+    }
+
+    .link-copy-container button {        
+        height: 1.8rem;
+        border-radius: 3px;
+        font-size: 1.0rem;
+        font-weight: 500;
+    }
+}
+
 @media (max-width: 700px) {
     #wait-for-player-container {        
         width: fit-content;
